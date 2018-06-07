@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>my first springboot website</title>
+		<!-- Bootstrap core CSS -->
+		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.1.0/css/bootstrap.css}" rel="stylesheet">
+		<!-- Custom styles for this template -->
+		<link href="asserts/css/signin.css" th:href="@{/asserts/css/signin.css}" rel="stylesheet">
+	
+		
+		</script>
+		
+	</head>
+
+	<body class="text-center">
+	
+		<form class="form-signin" action="dashboard.html" th:action="@{/user/login}" method="post">
+		<div style="text-align: center; color: blue">[[${message}]]</div>
+		
+			<img class="mb-4" src="asserts/img/bootstrap-solid.svg" th:src="@{/asserts/img/bootstrap-solid.svg}" alt="" width="72" height="72">
+			<h1 class="h3 mb-3 font-weight-normal" th:text="#{login.tip}">Please sign in</h1>
+			<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"/>
+			<label class="sr-only" th:text="#{login.username}">Username</label>
+			<input type="text" class="form-control" name="username" placeholder="Username" th:placeholder="#{login.username}" required="" autofocus="">
+			<label class="sr-only" th:text="#{login.password}">Password</label>
+			<input type="password" class="form-control" name="password" placeholder="Password" th:placeholder="#{login.password}" required="">
+			<div class="checkbox mb-3">
+				<label>
+          <input type="checkbox" value="remember-me"> [[#{login.remember}]]
+        </label>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.btn}">Sign in</button>
+			<p class="mt-5 mb-3 text-muted">© 2017-2018</p>
+			<a class="btn btn-sm" th:href="@{/login.html(l='zh_CN')}">中文</a>
+			<a class="btn btn-sm" th:href="@{/login.html(l='en_US')}">English</a>
+		</form>
+
+	</body>
+
+</html>
