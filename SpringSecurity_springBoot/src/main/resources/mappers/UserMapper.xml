@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wangsr.mapper.UserMapper">
+
+<resultMap type="cn.wangsr.entits.Sys_User" id="withrole">
+	<id column="id" property="id"/>
+	<result column="username" property="username"/>
+	<result column="password" property="password"/>
+
+	<collection property="roles" ofType="cn.wangsr.entits.Role">
+		<id column="o_id" property="id"/>
+		<result column="o_rolename"  property="rolename"/>
+	</collection>
+</resultMap>
+
+	<select id="selectUserByName" resultMap="withrole" parameterType="String">
+		select u.*
+		,r.name as o_rolename
+		,r.id as o_id
+		from Sys_User u
+        LEFT JOIN sys_role_user sru on u.id= sru.Sys_User_id
+        LEFT JOIN Sys_Role r on sru.Sys_Role_id=r.id
+        where username= #{username}
+	</select>
+
+	<insert id="insertUser" parameterType="cn.wangsr.entits.Sys_User">
+	insert into Sys_User(username,password)
+	values(#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR})
+	</insert>
+
+
+
+
+</mapper>
