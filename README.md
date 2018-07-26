@@ -1,4 +1,4 @@
 # SpringBoot
-  ## springboot-jdbc-mybatis-crud 
-  ### 是springboot结合mybatis，以及thymeleaf模版而成的小demo
+  ##  1） springboot-jdbc-mybatis-crud 
+  ### springboot结合mybatis，以及thymeleaf模版而成的小demo
   
