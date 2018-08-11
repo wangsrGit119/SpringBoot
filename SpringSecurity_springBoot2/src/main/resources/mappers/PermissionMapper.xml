@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wangsr.mapper.PermissionMapper">
+
+
+
+<select id="selectAllper"  resultType="cn.wangsr.entits.Permission">
+
+   SELECT * from Sys_permission ;
+</select>
+
+ <select id="getPerByUserId" parameterType="int" resultType="cn.wangsr.entits.Permission">
+      select p.*
+		from Sys_User u
+        LEFT JOIN sys_role_user sru on u.id= sru.Sys_User_id
+        LEFT JOIN Sys_Role r on sru.Sys_Role_id=r.id
+        LEFT JOIN Sys_permission_role spr on spr.role_id=r.id
+        LEFT JOIN Sys_permission p on p.id =spr.permission_id
+        where u.id=#{id}
+ </select>
+ 
+
+
+
+
+
+
+
+</mapper>

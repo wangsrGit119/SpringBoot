@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>添加资源页面</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" th:href="@{/css/x-admin.css}" media="all">
+
+<style type="text/css">
+	/* body{
+		  font-family: "华文细黑";
+		  background:url("https://desk-fd.zol-img.com.cn/t_s1920x1200c5/g5/M00/02/05/ChMkJlbKyIyIPqwEAAoT7kBm98gAALIDwAcn-YAChQG861.jpg") no-repeat;
+		  background-size: 100%;
+	} */
+  
+  
+ 
+</style>
+
+
+</head>
+
+<body   style=" overflow-y:auto; overflow-x:auto;height:1500px;">
+	<!-- 	赋予角色模块 -->
+		   <div class="x-nav">
+            <span class="">
+              <a>角色更新模块<span class="x-red">（*一旦选择更新角色，之前角色全部失效）</span></a>
+            </span>
+            <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
+        </div>
+
+
+<div class="x-body  layui-bg-gray" id="jsonresouredata"  >
+  <form  class="layui-form layui-form-pane"  >
+    <div class="layui-form-item">
+      <label for="L_username" class="layui-form-label"> 请选择 </label>
+      <div class="layui-input-inline" >
+        	<select name="user_id"  id="user_select" >
+        		<option>=====选择用户=====</option>
+                 <option  id="user_option"    th:each="user:${u_list}"  th:value="${user.id}" th:text="${user.username}"></option>
+            </select>
+      </div>
+    </div>
+      
+           <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">
+                       		 角色
+                    </label>
+                    <table  class="layui-table layui-input-block">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    	所有角色
+                                </td>
+                                <td width="90%">
+                                    <div class="layui-input-block" >
+                                    	<span th:each="role:${r_list}">
+                                    	<input name="id[]"  type="checkbox"  th:value="${role.id}" th:text="${role.rolename}" > 
+                                        </span>
+                                     
+                                   
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+		<div class="layui-form-item">
+		      <button  class="layui-btn" lay-filter="add" lay-submit="">保存</button>
+    	</div>
+  </form>
+</div>
+
+<!-- 	添加角色模块 -->
+  <div class="x-nav">
+            <span class="">
+              <a>添加新角色模块<span class="x-red">（*添加格式请按照已有角色,添加完成请刷新）</span></a>
+            </span>
+            <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
+        </div>
+
+<div class="x-body  layui-bg-gray" id="jsonresouredata2"  >
+  <form  class="layui-form layui-form-pane"  >
+
+ <div class="layui-form-item">
+      <label for="L_username" class="layui-form-label"> 已有角色 </label>
+      <div class="layui-input-inline" >
+        	<select name=""  >
+        		<option>点击查看</option>
+                 <option  th:each="role:${r_list}"  th:value="${role.id}" th:text="${role.rolename}"></option>
+            </select>
+      </div>
+    </div>
+
+<div class="layui-form-item">
+      <label class="layui-form-label"> 角色添加 </label>
+      <div class="layui-input-inline" >
+        	 <input type="text"  name="rolename"  placeholder="添加新的角色" 
+	                        autocomplete="on" class="layui-input">
+      </div>
+    </div>
+  
+
+
+		<div class="layui-form-item">
+		      <button  class="layui-btn" lay-filter="add2" lay-submit="">保存</button>
+    	</div>
+  </form>
+</div>
+
+
+	<!-- 	角色对应权限栏目模块 -->
+		   <div class="x-nav">
+            <span class="">
+              <a>角色对应权限主栏目模块<span class="x-red">（*新添加栏目选择最新角色，添加完成请刷新）</a>
+            </span>
+            <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
+        </div>
+<div class="x-body  layui-bg-gray" id="jsonresouredata3"  >
+  <form  class="layui-form layui-form-pane"  >
+  
+   
+  
+    <div class="layui-form-item">
+      <label for="L_username" class="layui-form-label"> 角色选择 </label>
+      <div class="layui-input-inline" >
+        	<select name="role.id"  >
+        		<option>=====选择角色=====</option>
+                 <option  th:each="role:${r_list}"  th:value="${role.id}" th:text="${role.rolename}"></option>
+            </select>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label for="L_username" class="layui-form-label"> 权限栏目 </label>
+      <div class="layui-input-inline" >
+        	 <input type="text"  name="barName"  placeholder="添加新的栏目" 
+	                        autocomplete="on" class="layui-input">
+      </div>
+    </div>
+      <div class="layui-form-item layui-form-text">
+                    <label for="desc" class="layui-form-label">
+                        新栏目描述
+                    </label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入内容" id="description" name="description" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+           
+
+		<div class="layui-form-item">
+		      <button  class="layui-btn" lay-filter="add3" lay-submit="">保存</button>
+    	</div>
+  </form>
+</div>
+
+
+
+<script th:src="@{/lib/layui/layui.js}" charset="utf-8">
+        </script> 
+<script th:src="@{/js/x-layui.js}" charset="utf-8">
+        </script> 
+   
+     
+    
+<script>
+			
+			var obj=document.getElementById('user_select');
+
+
+            layui.use(['form','layer'], function(){
+                $ = layui.jquery;
+              var form = layui.form()
+              ,layer = layui.layer;
+            
+         
+		 
+		//监听提交=====================第一个表单==========================
+		form.on('submit(add)', function(data) {
+
+			console.log(data.field);
+			//发异步，把数据提交给后台
+			var info;
+			var ids = new Array();
+			$("input:checkbox[name='id[]']:checked").each(function() { // 遍历name=test的多选框
+				var id = $(this).val(); // 每一个被选中项的值
+				ids.push(id);
+			});
+			var jsonString = JSON.stringify(ids)
+			var jsonids = "{\"ids\":" + jsonString + "}";
+			$.ajax({
+				url : '/touser/user_roles',
+				type : 'POST',
+				data : {
+					user_id : data.field.user_id,
+					ids : jsonids
+				},
+				async : false,
+				dataType : 'json',
+				success : function(result) {
+					console.log(result);
+					info = result.content;
+				}
+			});//ajax结束
+
+			if (info == "success") {
+				layer.msg('角色更新成功', {
+					icon : 6
+				});
+			} else {
+				layer.msg('后台数据校验失败,请重新选择', {
+					icon : 7
+				});
+
+			}//提交判断结束
+
+			return false;//必须返回
+		});//监听结束
+
+		//监听提交=====================第二个表单==========================
+		form.on('submit(add2)', function(data) {
+			console.log(data);
+			//发异步，把数据提交给后台
+			var info;
+			$.ajax({
+				url : '/role/role',
+				type : 'POST',
+				data : $("#jsonresouredata2 form").serialize(),//jquery的序列化表单
+				async : false,//默认true 即异步  请求未结束 ajax后面的内容均会执行   但是false下，只有得到success执行成功后面的才会继续判断
+				success : function(result) {
+					console.log(result);
+					info = result.content;
+
+				}
+			});//ajax结束
+
+			if (info == "success") {
+				layer.msg('添加成功', {
+					icon : 6
+				});
+				
+			} else {
+				layer.msg('后台数据校验失败,请重新填写', {
+					icon : 7
+				});
+
+			}//提交判断结束
+
+			return false;//必须返回
+
+		});//监听结束
+
+		//监听提交=====================第三个表单==========================
+		form.on('submit(add3)', function(data) {
+			console.log(data);
+			//发异步，把数据提交给后台
+			var info;
+			$.ajax({
+				url : '/touser/permission',
+				type : 'POST',
+				data : $("#jsonresouredata3 form").serialize(),//jquery的序列化表单
+				async : false,
+				success : function(result) {
+					console.log(result);
+					info = result.content;
+				}
+			});//ajax结束
+
+			if (info == "success") {
+				layer.msg('更新成功', {
+					icon : 6
+				});
+				
+			} else {
+				layer.msg('该角色栏目已经存在,请重新填写', {
+					icon : 7
+				});
+
+			}//提交判断结束
+			// window.parent.location.reload();//刷新父页面
+			return false;//必须返回
+		});//监听结束
+
+	});//表单提交结束
+</script>
+</body>
+</html>

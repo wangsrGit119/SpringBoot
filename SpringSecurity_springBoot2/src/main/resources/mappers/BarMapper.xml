@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wangsr.mapper.BarMapper">
+
+
+
+
+<!-- 分布查询 -->
+<resultMap type="cn.wangsr.entits.Bar" id="getBarList">
+	<id column="id" property="id"/>
+	<result column="barName" property="barName"/>
+	<result column="description" property="description" />
+	
+	<association property="role"   javaType="cn.wangsr.entits.Role">
+		<id column="r_id" property="id"/>
+		<result column="r_name" property="rolename"/>
+		
+	</association>
+	
+	<collection property="lists" ofType="cn.wangsr.entits.Bar_list" column="id" 
+	select="cn.wangsr.mapper.BarMapper.getAllById" fetchType="eager"
+	></collection>
+
+</resultMap>
+
+
+<!-- 分步查询 -->
+<select id="getBarByRoId" resultMap="getBarList">
+		SELECT
+		b.*,
+		r.id as r_id,
+	r.`name` as r_name
+		FROM
+		bar b
+	LEFT JOIN sys_role r ON b.role_id=r.id
+	 WHERE r.id=#{id}
+</select>
+
+<select id="getAllBar"  resultType="cn.wangsr.entits.Bar">
+
+select * from bar
+
+</select>
+
+
+
+<insert id="addBar" parameterType="cn.wangsr.entits.Bar">
+	INSERT INTO 
+		bar (barName,description,role_id)
+		VALUES
+			(#{barName},#{description},#{role.id});
+
+</insert>
+
+
+
+
+
+<select id="getAllById" parameterType="int" resultType="cn.wangsr.entits.Bar_list">
+	SELECT
+		*
+	FROM
+		bar_list WHERE bar_id=#{id}
+</select> 
+
+<select id="getAllBar_List" resultType="cn.wangsr.entits.Bar_list">
+	SELECT
+		*
+	FROM
+		bar_list
+
+</select>
+
+<insert id="addBar_List" parameterType="cn.wangsr.entits.Bar_list">
+	INSERT INTO 
+		bar_list (barListName,description,url,bar_id)
+		VALUES
+			(#{barListName},#{description},#{url},#{bar_id});
+
+</insert>
+<update id="updateBar_List" parameterType="cn.wangsr.entits.Bar_list">
+
+		UPDATE bar_list
+		SET barListName =#{barListName},
+		url =#{url},
+		description=#{description},
+		bar_id =#{bar_id}
+
+</update>
+
+<delete id="deleteBar_List" parameterType="int">
+	delete bl.* from bar_list bl where id=#{id}
+</delete>
+
+
+</mapper>

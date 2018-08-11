@@ -1,0 +1,17 @@
+#分页
+
+pagehelper:
+  reasonable: true
+  helper-dialect: mysql
+
+##证书
+#server:
+#  port: 80
+#  ssl:
+#    protocol: HTTP/1.1
+#    enabled: true
+#    key-store: classpath:www.wangsrbus.cn.jks
+#    key-store-type: PKCS12
+#    key-store-password: 4re3z25mv2
+    
+  

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html   lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>table模块快速使用</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="stylesheet" th:href="@{/lib/layui/css/layui.css}" media="all">
+  
+</head>
+<body style=" overflow-y:auto; overflow-x:auto;height:800px;">
+		 
+		<div id="test" >
+		正在开发：
+			  <span class="layui-badge-dot"></span>
+			  <span class="layui-badge-dot layui-bg-orange"></span>
+			  <span class="layui-badge-dot layui-bg-green"></span>
+			  <span class="layui-badge-dot layui-bg-cyan"></span>
+			  <span class="layui-badge-dot layui-bg-blue"></span>
+			  <span class="layui-badge-dot layui-bg-black"></span>
+			  <span class="layui-badge-dot layui-bg-gray"></span>
+		</div>
+		<hr  class="layui-bg-green" size="15px" />
+		
+		
+		
+		<div class="layui-carousel" id="test3" lay-filter="test4">
+		  <div carousel-item="">
+		    <div><img src="http://oxowv8x4l.bkt.clouddn.com/image/springsecurity/loginpage.png"></div>
+		    <div><img src="http://oxowv8x4l.bkt.clouddn.com/image/springsecurity/welcomepage.png"></div>
+		    <div><img src="http://oxowv8x4l.bkt.clouddn.com/image/springsecurity/barpage1.png"></div>
+		    <div><img src="http://oxowv8x4l.bkt.clouddn.com/image/springsecurity/infomy.png"></div>
+		    <div><img src="http://oxowv8x4l.bkt.clouddn.com/image/springsecurity/usermanage.png"></div>
+		  </div>
+		</div> 
+		<hr  class="layui-bg-green" size="15px"/>
+		
+		
+		
+		<div class="layui-collapse" lay-filter="test">
+		
+		 <div class="layui-colla-item">
+		    <h2 class="layui-colla-title">使用指导</h2>
+		    <div class="layui-colla-content">
+		      <p><span class="layui-badge-dot layui-bg-black"></span>以管理员身份登录后进入管理员角色匹配栏目</p>
+		       <p><span class="layui-badge-dot layui-bg-black"></span>找到用户管理子栏目,添加自己的用户信息</p>
+		       <p><span class="layui-badge-dot layui-bg-black"></span>然后去权限赋予界面找到自己的赋予自己相应的角色</p>
+		    	<p><span class="layui-badge-dot layui-bg-black"></span>想拥有自己左侧栏目自己可添加,主栏目一个角色对应一个，子栏目一个角色对应多个</p>
+		 	     <p><span class="layui-badge-dot layui-bg-black"></span>其他自己探索，有问题联系我，联系方式在注意事项</p>
+		 </div>
+		 </div>
+		  <div class="layui-colla-item">
+		    <h2 class="layui-colla-title">系统使用说明</h2>
+		    <div class="layui-colla-content">
+		       <p><span class="layui-badge-dot layui-bg-black"></span>本系统是基于SpringSecurity,layui,以及SpringBoot打造的一个适合初学着学习了解权限相关内容的SSM系统</p>
+		      <p> <span class="layui-badge-dot layui-bg-black"></span>同时基于Mybatis，用到了多种读写方式，一对一，一对多，多对多，联合分步查询方式，对于学习mybatis的来说是再好不过的练手素材</p>
+		      <p><span class="layui-badge-dot layui-bg-black"></span>特色：动态URL,restfu风格,根据权限读取属于自己的左侧栏</p>
+		      <p><span class="layui-badge-dot layui-bg-black"></span>数据分页用的pagehelper插件基于layui</p>
+		    </div>
+		    </div>
+		    <div class="layui-colla-item">
+		    <h2 class="layui-colla-title">注意事项</h2>
+		    <div class="layui-colla-content">
+		      <p> <span class="layui-badge-dot layui-bg-black"></span>自己以最高权限进入系统后，自己赋予相应的权限，定期删除数据</p>
+		       <p><span class="layui-badge-dot layui-bg-black"></span>有什么需要请联系：QQ：1215618342</p>
+		       <p><span class="layui-badge-dot layui-bg-black"></span>左边栏是隐藏的，你需要自己点击栏目图标才能看到自己拥有的栏目</p>
+		    </div>
+		    </div>
+		  
+		  </div>
+		  
+		  
+
+ <script th:src="@{/lib/newlayui/layui.js}" charset="utf-8"></script>
+			<script>
+					layui.use(['carousel','element', 'layer','form'], function(){
+						 var element = layui.element;
+						 var layer = layui.layer;
+						  var carousel = layui.carousel
+						  ,form = layui.form;
+					  
+					//监听折叠
+					  element.on('collapse(test)', function(data){
+					    layer.msg('展开状态：'+ data.show);
+					  });
+					  
+					  
+					//改变下时间间隔、动画类型、高度
+					  carousel.render({
+					    elem: '#test3'
+					    ,interval: 1800
+					    ,anim: 'fade'
+					    ,width: '100%'
+					    ,height: '300px'
+					  });
+					  
+					
+					  var $ = layui.$, active = {
+					    set: function(othis){
+					      var THIS = 'layui-bg-normal'
+					      ,key = othis.data('key')
+					      ,options = {};
+					      
+					      othis.css('background-color', '#5FB878').siblings().removeAttr('style'); 
+					      options[key] = othis.data('value');
+					      ins3.reload(options);
+					    }
+					  };
+					  
+					  //监听开关
+					  form.on('switch(autoplay)', function(){
+					    ins3.reload({
+					      autoplay: this.checked
+					    });
+					  });
+					  
+					  $('.demoSet').on('keyup', function(){
+					    var value = this.value
+					    ,options = {};
+					    if(!/^\d+$/.test(value)) return;
+					    
+					    options[this.name] = value;
+					    ins3.reload(options);
+					  });
+					  
+					  //其它示例
+					  $('.demoTest .layui-btn').on('click', function(){
+					    var othis = $(this), type = othis.data('type');
+					    active[type] ? active[type].call(this, othis) : '';
+					  });
+					});
+			</script>
+
+
+
+</body>
+</html>

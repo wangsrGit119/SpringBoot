@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html    lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>权限管理系统</title>
+  <link rel="stylesheet" href="css/login.css">
+  <script type="text/javascript" src="js/index.js"></script>
+  <script src="/js/layui.js" charset="utf-8"></script>
+  <!-- 腾讯验证码接入 -->
+ 
+  
+  
+</head>
+<body class="login-bg">
+    <canvas id="fullstarbg">你的浏览器不支持canvas标签</canvas>
+    <div class="login">
+    		<p th:if="${param.mylogout}" class="bg-warning">已成功注销</p>
+			<p th:if="${param.error}" class="bg-danger">用户名或密码错误</p>
+        <div class="message">权限系统登录</div>
+        <div id="darkbannerwrap"></div>   
+        <form method="post" th:action="@{/login}"  class="layui-form" >
+            <input name="username" placeholder="用户名"  type="text" lay-verify="required" class="layui-input" >
+            <hr class="hr15">
+            <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
+            <hr class="hr15">
+            <input   value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
+            <hr class="hr20" >
+           <!--  <input type="checkbox"   name="remember"   /> 记住我
+            <hr class="hr20" > -->
+        </form>
+        <p  >  初始帐号均已:admin 密码：admin  登录 ,登录后自己注册个人信息,再以个人帐号登录</p>
+    </div>
+ 
+    <!-- 底部结束 -->
+    
+</body>
+</html>

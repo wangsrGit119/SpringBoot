@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wangsr.mapper.UserroleMapper">
+
+
+
+
+
+ 
+<insert id="insertUser_role" parameterType="cn.wangsr.entits.User_Role">
+	INSERT INTO sys_role_user (Sys_User_id, Sys_Role_id)
+		VALUES
+			(#{user_id},#{role_id})
+
+</insert>
+
+	<delete id="deleteUser_role"  parameterType="java.lang.Integer">
+		
+		DELETE sru.*
+			FROM
+				sys_role_user sru
+			WHERE
+				sru.Sys_User_id = #{uid}
+	
+	</delete>
+
+
+
+
+</mapper>

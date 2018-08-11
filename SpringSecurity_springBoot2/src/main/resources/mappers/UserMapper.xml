@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wangsr.mapper.UserMapper">
+
+<resultMap type="cn.wangsr.entits.Sys_User" id="withrole">
+	<id column="id" property="id"/>
+	<result column="username" property="username"/>
+	<result column="password" property="password"/>
+	<result column="email" property="email"/>
+	<result column="createdate" property="createdate"/>
+	<result column="Active"  property="Active"/>
+	<collection property="roles" ofType="cn.wangsr.entits.Role">
+		<id column="o_id" property="id"/>
+		<result column="o_rolename"  property="rolename"/>
+	</collection>
+</resultMap>
+
+
+
+	<select id="selectUserByName" resultMap="withrole" parameterType="String">
+		select u.*
+		,r.name as o_rolename
+		,r.id as o_id
+		from sys_user u
+        LEFT JOIN sys_role_user sru on u.id= sru.Sys_User_id
+        LEFT JOIN sys_role r on sru.Sys_Role_id=r.id
+        where username= #{username}
+	</select>
+	
+	
+	<select id="selectUserById" resultMap="withrole" parameterType="java.lang.Integer">
+		select u.*
+		,r.name as o_rolename
+		,r.id as o_id
+		from sys_user u
+        LEFT JOIN sys_role_user sru on u.id= sru.Sys_User_id
+        LEFT JOIN sys_role r on sru.Sys_Role_id=r.id
+        where u.id= #{id}
+	</select>
+	
+	
+	<select id="getAllUser"  resultMap="withrole">
+		SELECT
+			u.*,
+			r.`name` as o_rolename,
+			r.id as o_id
+		FROM
+			sys_user u
+		LEFT JOIN sys_role_user sru ON sru.Sys_User_id=u.id
+		LEFT JOIN sys_role r ON r.id=sru.Sys_Role_id
+		ORDER BY createdate DESC
+		
+	</select>
+	
+	
+	<select id="getAllPageUser"  resultType="cn.wangsr.entits.Sys_User">
+		SELECT
+			*			
+		FROM
+		sys_user 
+		ORDER BY createdate DESC
+		
+	</select>
+	
+	
+	
+
+	<insert id="insertUser" parameterType="cn.wangsr.entits.Sys_User">
+		INSERT INTO sys_user (username, password,Active,createdate,email)
+		VALUES(
+		#{username,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{Active,jdbcType=VARCHAR},
+		#{createdate,jdbcType=TIMESTAMP},
+		#{email,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="updateUser" parameterType="cn.wangsr.entits.Sys_User">
+	 UPDATE sys_user
+		SET username =#{username},
+		 Active =#{Active},
+		 email = #{email}
+		WHERE
+			id =#{id}
+	
+	</update>
+
+
+
+   <delete id="deleteUserById" parameterType="java.lang.Integer">
+   	
+			DELETE
+			u.*,
+			sru.*,
+			spr.*
+		FROM
+			sys_user u
+		
+		LEFT JOIN sys_role_user sru ON sru.Sys_User_id=u.id
+		LEFT JOIN sys_role r ON sru.Sys_Role_id =r.id
+		LEFT JOIN sys_permission_role spr ON r.id=spr.role_id
+		LEFT JOIN sys_permission p ON spr.permission_id=p.id
+		WHERE
+			u.id =#{id};
+
+
+   </delete>
+   
+
+
+</mapper>

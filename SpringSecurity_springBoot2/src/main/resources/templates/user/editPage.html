@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org"
+ 		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <meta charset="utf-8">
+        <title>
+          用户信息管理
+        </title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="format-detection" content="telephone=no">
+     <link rel="stylesheet" th:href="@{/css/x-admin.css}" media="all">
+    </head>
+    <body  class="layui-bg-gray">
+	<div class="x-body" id="jsonuserdata"  >
+	  <form class="layui-form"  >
+	  
+	  	 <div class="layui-form-item">
+	      <label  class="layui-form-label">注册ID </label>
+	      <div class="layui-input-inline">
+	        <input type="text" id="id" name="id" th:value="${user.id}" readonly="readonly"
+	                         class="layui-input">
+	      </div>
+	    </div> 
+	  
+	    <div class="layui-form-item">
+	      <label for="L_email" class="layui-form-label"> <span class="x-red">*</span>邮箱 </label>
+	      <div class="layui-input-inline">
+	        <input type="text" id="L_email" name="email" required lay-verify="email" th:value="${user.email}"
+	                        autocomplete="on" class="layui-input">
+	      </div>
+	    </div>
+	    <div class="layui-form-item">
+	      <label for="L_username" class="layui-form-label"> <span class="x-red">*</span>昵称 </label>
+	      <div class="layui-input-inline">
+	        <input type="text" id="L_username" name="username" th:value="${user.username}" readonly="readonly"
+	                        autocomplete="on" class="layui-input">
+	      </div>
+	    </div>
+	    <div class="layui-form-item">
+	      <label  class="layui-form-label"> <span class="x-red">*</span>状态 </label>
+	      <div class="layui-input-inline">
+	        <input type="text"  name="Active" th:value="${user.Active}"
+	                        autocomplete="on" class="layui-input">
+	      </div>
+	    </div>
+	    
+	    <div class="layui-form-item">
+	      <label  class="layui-form-label"> <span class="x-red">*</span>注册日期 </label>
+	      <div class="layui-input-inline">
+	        <input type="text"  name="createdate2" th:value="${#dates.format(user.createdate, 'dd/MMM/yyyy')}" readonly="readonly"
+	                        autocomplete="on" class="layui-input">
+	      </div>
+	    </div>
+	    
+	    <div class="layui-form-item">
+	      <label for="L_repass" class="layui-form-label"> </label>
+	      <button  class="layui-btn" lay-filter="add" lay-submit=""> 确认更新 </button>
+	    </div>
+	  </form>
+	</div>
+	<script th:src="@{/lib/layui/layui.js}" charset="utf-8">
+	        </script> 
+	<script th:src="@{/js/x-layui.js}" charset="utf-8">
+	        </script> 
+	<script>
+	            layui.use(['form','layer'], function(){
+	                $ = layui.jquery;
+	              var form = layui.form()
+	              ,layer = layui.layer;
+	            
+	              //自定义验证规则
+	              form.verify({
+	                nikename: function(value){
+	                  if(value.length < 5){
+	                    return '昵称至少得5个字符啊';
+	                  }
+	                }
+	              
+	              });
+	
+	              //监听提交
+	              form.on('submit(add)', function(data){
+	                console.log(data);
+	                //发异步，把数据提交给后台
+	                var info;
+	                $.ajax({
+	                	url: '/touser/user',
+	                	type: 'put',
+	                	data: $("#jsonuserdata form").serialize(),//jquery的序列化表单
+	                	async: false,//默认true 即异步  请求未结束 ajax后面的内容均会执行   但是false下，只有得到success执行成功后面的才会继续判断
+	                	success:function(result){
+	                		console.log(result);
+	                		info=result.content;
+	                		
+	                	}
+	                });//ajax结束
+	                
+	        		 if(info=="success"){
+	       				 layer.msg('更新成功', {icon: 6});
+	        		}else{
+	        			layer.msg('后台数据校验失败,请重新填写', {icon: 7}); 
+	        			
+	        		}//提交判断结束
+	              
+	              return false;//必须返回
+	              });//监听结束
+	              
+	            });//表单提交结束
+	        </script>
+</body>
+</html>
