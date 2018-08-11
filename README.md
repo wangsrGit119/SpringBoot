@@ -14,11 +14,11 @@
 > 一款基于springsecurity+mybatis+springboot+layui实现的权限管理系统，无论是在权限，还是数据操作上都是学习的好样本，
 
 - 效果预览
-- ![Alt text](/images/1.png)
-- ![Alt text](/images/2.png)
-- ![Alt text](/images/3.png)
-- ![Alt text](/images/4.png)
-- ![Alt text](/images/5.png)
-- ![Alt text](/images/6.png)
+- ![Alt text](http://oxowv8x4l.bkt.clouddn.com/images/wangsr/1.png)
+- ![Alt text](http://oxowv8x4l.bkt.clouddn.com/images/wangsr/2.png)
+- ![Alt text](http://oxowv8x4l.bkt.clouddn.com/images/wangsr/3.png)
+- ![Alt text](http://oxowv8x4l.bkt.clouddn.com/images/wangsr/4.png)
+- ![Alt text](http://oxowv8x4l.bkt.clouddn.com/images/wangsr/5.png)
+- ![Alt text](http://oxowv8x4l.bkt.clouddn.com/images/wangsr/6.png)
 
 ### 后续继续完善
