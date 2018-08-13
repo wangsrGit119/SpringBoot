@@ -11,6 +11,8 @@
 
 #### 访问网站[wangsrbus.cn](http://wangsrbus.cn) 
 
+#### sql脚本请加我QQ：1215618342
+
 > 一款基于springsecurity+mybatis+springboot+layui实现的权限管理系统，无论是在权限，还是数据操作上都是学习的好样本，
 
 - 效果预览
@@ -22,4 +24,4 @@
 - ![Alt text](http://oxowv8x4l.bkt.clouddn.com/images/wangsr/6.png)
 
 ### 后续继续完善
-sql脚本请加我QQ：1215618342
+
