@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="main-api" />
+        <module name="main-consume-01" />
+        <module name="main-eureka-01" />
+        <module name="main-eureka-02" />
+        <module name="main-eureka-03" />
+        <module name="main-provide-01" />
+        <module name="maincloud" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

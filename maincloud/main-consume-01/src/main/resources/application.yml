@@ -1,0 +1,19 @@
+eureka:
+  client: #客户端注册进eureka服务列表内
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+  instance:
+    instance-id: main-consume-01   #将自己的该名字注册到Eureka Server。若不配置或设置为false，表示注册微服务所在操作系统的hostname到Eureka Servertrue   #将自己的IP注册到Eureka Server。若不配置或设置为false，表示注册微服务所在操作系统的hostname到Eureka Server
+    prefer-ip-address: true     #访问路径可以显示IP地址
+
+spring:
+  application:
+    name: consume-01   # 指定注册到Eureka Server上的应用名称
+
+server:
+  port: 80
+
+
+info:
+  app.name: main-cloud-consume
+  company.name: www.wangsrbus.cn
