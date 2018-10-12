@@ -19,7 +19,7 @@
 - 效果预览
 - ![Alt text](https://images2018.cnblogs.com/blog/1377204/201808/1377204-20180811141223183-585321616.gif)
 
-###  4） SpringSecurity_springBoot2
+###  4） maincloud
  > springcloud微服务架构 及其eureka注册中心集群搭建配置
  
 
