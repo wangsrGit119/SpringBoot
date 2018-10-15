@@ -5,7 +5,7 @@ eureka:
     service-url:
       defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
   instance:
-    instance-id: main-provide-01   #将自己的该名字注册到Eureka Server。若不配置或设置为false，表示注册微服务所在操作系统的hostname到Eureka Server
+    instance-id: main-provide-02   #将自己的该名字注册到Eureka Server。若不配置或设置为false，表示注册微服务所在操作系统的hostname到Eureka Server
     prefer-ip-address: true     #访问路径可以显示IP地址
 
 spring:
@@ -14,9 +14,9 @@ spring:
 
 
 info:
-  app.name: main-cloud-provide-01
+  app.name: main-cloud-provide-02
   company.name: www.wangsrbus.cn
 
 
 server:
-  port: 8081
+  port: 8082

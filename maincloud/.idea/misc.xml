@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/main-consume-01/pom.xml" />
         <option value="$PROJECT_DIR$/main-eureka-02/pom.xml" />
         <option value="$PROJECT_DIR$/main-eureka-03/pom.xml" />
+        <option value="$PROJECT_DIR$/main-provide-02/pom.xml" />
       </list>
     </option>
   </component>

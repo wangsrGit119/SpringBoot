@@ -19,6 +19,7 @@
         <module>main-eureka-03</module>
         <module>main-provide-01</module>
         <module>main-consume-01</module>
+        <module>main-provide-02</module>
     </modules>
 
     <parent>

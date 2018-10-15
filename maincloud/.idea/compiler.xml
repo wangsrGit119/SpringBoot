@@ -12,6 +12,7 @@
         <module name="main-eureka-02" />
         <module name="main-eureka-03" />
         <module name="main-provide-01" />
+        <module name="main-provide-02" />
         <module name="maincloud" />
       </profile>
     </annotationProcessing>

@@ -13,7 +13,7 @@ public class DeptControllerConsume {
     @Autowired
     private RestTemplate restTemplate;
 
-    private static final String REST_URL_PREFIX = "http://localhost:8081";
+    private static final String REST_URL_PREFIX = "http://provide-01";
 
 
     @RequestMapping("/consume/getall")
