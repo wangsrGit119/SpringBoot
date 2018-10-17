@@ -12,7 +12,7 @@
 
 #### 访问网站[wangsrbus.cn](http://wangsrbus.cn) 
 
-#### sql脚本请加我QQ：1215618342
+#### sql脚本链接：https://pan.baidu.com/s/1ThNCL3-BZ57TtT0hURlZCQ 密码：xkzp
 
 > 一款基于springsecurity+mybatis+springboot+layui实现的权限管理系统，无论是在权限，还是数据操作上都是学习的好样本，
 
