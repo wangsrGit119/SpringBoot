@@ -18,10 +18,10 @@ public class DeptController {
     @RequestMapping("/provide/getAll")
     @ResponseBody
     public Dept  getAll(@RequestBody Dept dept){
-
+        System.out.println("provide01:"+dept);
         Dept dept1= deptServiceImple.getAll(dept);
 
-        System.out.println("provide01:"+dept);
+
 
         return  dept1;
     }
