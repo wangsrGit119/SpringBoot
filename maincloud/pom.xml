@@ -7,7 +7,7 @@
     <groupId>cn.wangsr.cloud</groupId>
     <artifactId>maincloud</artifactId>
     <version>1.0-SNAPSHOT</version>
-
+    <packaging>pom</packaging>
 
 
 
