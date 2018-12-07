@@ -1,0 +1,10 @@
+# redis配置，以下有默认配置的也可以使用默认配置
+#redis:
+#  host: 10.1.1.241
+#  port: 6379
+#  pool:
+#    max-active: 8
+#    max-wait: 1
+#    max-idle: 8
+#    min-idle: 0
+#  timeout: 0
