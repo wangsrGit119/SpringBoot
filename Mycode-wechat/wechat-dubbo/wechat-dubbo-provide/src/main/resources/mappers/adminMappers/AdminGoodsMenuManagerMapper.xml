@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wangsr.mapper.adminMapper.AdminGoodsMenuManager">
+
+
+    <resultMap id="adminMenuInfoMap" type="cn.wangsr.adminOrderDo.AdminGoodsClassifyDo">
+        <id column="id" property="classifyId" />
+        <result column="name" property="classifyName"/>
+    </resultMap>
+
+
+    <select id="getGoodsClassify"   resultMap="adminMenuInfoMap">
+
+        SELECT
+        id, `name`
+    FROM
+        `shopping-all-items`
+
+    </select>
+
+    <insert id="insertGoodsClassify" parameterType="cn.wangsr.adminOrderDo.AdminGoodsClassifyDo">
+        INSERT INTO `shopping-all-items` ( `name` )
+        VALUES
+            (#{classifyName})
+    </insert>
+
+    <insert id="insertGoodsInfo" parameterType="cn.wangsr.adminOrderDo.AdminGoodsDo">
+        INSERT INTO `shopping-all-goods` ( goodsName, goodsImage, goodsPrice, goodsTags, goodsDescription, `goods-items-id` )
+        VALUES
+        ( #{goodsName}, #{goodsImage},#{goodsPrice}, #{goodsTags}, #{goodsDescription}, #{goodsItemId} )
+    </insert>
+
+    <delete id="deleteGoodsById" parameterType="java.lang.Integer">
+        	DELETE   FROM `shopping-all-goods` WHERE id=#{goodsId}
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "van-card": "../../components/dist/card/index",
+    "van-swipe-cell": "../../components/dist/swipe-cell/index",
+    "van-submit-bar": "../../components/dist/submit-bar/index",
+    "van-checkbox": "../../components/dist/checkbox/index",
+    "van-dialog": "../../components/dist/dialog/index",
+    "van-toast": "../../components/dist/toast/index"
+
+  }
+}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wangsr.mapper.OrderInfoManager">
+
+
+<resultMap type="cn.wangsr.orderInfoDo.OrderInfoDo" id="orderInfoMap">
+
+	<id column="id" property="id"/>
+	<result column="orderTime" property="orderTime"/>
+	<result column="orderStatus" property="orderStatus"/>
+	<result column="orderDetail" property="orderDetail"/>
+	<result column="personalOpenId" property="userOnlyId"/>
+</resultMap>
+
+
+<insert id="insertOrderInfo" parameterType="cn.wangsr.orderInfoDo.OrderInfoDo">
+   
+		INSERT INTO `shopping-all-orderinfo` (
+			id,
+			orderTime,
+			orderStatus,
+			orderDetail,
+			personalOpenId
+		)
+		VALUES
+			(
+				#{id},#{orderTime},#{orderStatus},#{orderDetail},#{userOnlyId}
+			)
+</insert>
+
+<select id="getOrderInfoByOnlyId" resultMap="orderInfoMap">
+
+	SELECT
+	sao.id,
+	sao.orderTime,
+	sao.orderStatus,
+	sao.orderDetail,
+	sao.personalOpenId
+FROM
+	`shopping-all-orderinfo` sao 
+WHERE 
+    sao.personalOpenId=#{userOnlyId}
+ORDER BY
+	sao.orderTime DESC
+</select>
+
+</mapper>

@@ -1,0 +1,27 @@
+<!--pages/goodsdetail/goodsdetail.wxml-->
+<van-nav-bar title="商品详情" left-text="返回" left-arrow
+bind:click-left="onClickLeft" />
+
+<view class='detailPage'>
+     <van-card tag="{{goodsDetailInfo.goodsTags}}" num="999" price="{{goodsDetailInfo.goodsPrice}}" origin-price="{{goodsDetailInfo.goodsPrice*1.05}}" desc="{{goodsDetailInfo.goodsDescription}}" lazy-load="true" title="{{goodsDetailInfo.goodsName}}" thumb="{{goodsDetailInfo.goodsImage }}">
+               <view slot="footer">
+                <van-stepper class="stepper" disable-input value="{{ goodsCount }}"  bind:change="onChangePlusorMinus" data-goods-info="{{goodsDetailInfo}}"/> 
+               </view>
+     </van-card>
+
+
+
+
+<!-- 底部提交栏目 -->
+<van-submit-bar
+  price="{{ goodsResultAmount }}"
+  button-text="加入购物车"
+  bind:submit="addItems"
+  tip="{{ true }}"
+>
+  <van-tag type="primary"><van-icon name="cart-o" color='red' size='20px'></van-icon></van-tag>
+  <view slot="tip">
+    您选择的商品在购物车中可以查看
+  </view>
+</van-submit-bar>
+</view>

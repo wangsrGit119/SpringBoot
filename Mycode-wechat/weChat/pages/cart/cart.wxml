@@ -1,0 +1,45 @@
+<!--pages/cart/cart.wxml-->
+<wxs src="../../tools/datautils.wxs" module="datautils" />
+<van-toast id="van-toast" />
+<view class='main' >
+<!-- 空 -->
+  <view wx:if="{{goodsResult ==''}}" class='emptyParent01'>
+    <image src='https://ws1.sinaimg.cn/large/006olMfyly1fyqyv70hgkj302w02tq2p.jpg'></image>  
+  </view>
+ <!-- 非空 -->
+  <scroll-view scroll-y="true" wx:else class='emptyParent02'>
+
+  <!-- 购物信息 -->
+    <checkbox-group  bind:change="goodsAccountChange">
+        <view class="goodsResult" wx:for="{{goodsResult}}" wx:key="goodsId">
+        <checkbox value='{{datautils.objectToString(item)}}' checked='{{isChecked}}' >
+        </checkbox>
+         <van-card tag="本店招牌" num="{{item.goodsCount}}" price="{{item.goodsPrice}}" origin-price="{{item.goodsPrice*1.05}}" desc="{{item.goodsDescription}}" lazy-load="true" title="{{item.goodsName}}" thumb="{{item.goodsImage }}">
+               <view slot="footer">
+                  <van-button size="mini" bindtap='deleteFromCart' data-goods-id='{{item.id}}' style='border:1px solid grey;border-radius: 18%;' >删除</van-button>
+               </view>
+         </van-card>
+        </view>
+   
+      </checkbox-group>
+
+ <!-- 提交订单信息 -->
+
+  <van-submit-bar price="{{ totalAmount }}"  button-text="{{totalAmount==0? '请选择':'提交订单'}}" bind:submit="resultAccount" tip="{{ true }}">
+
+ 
+
+
+  <view slot="tip">
+    您的收货地址不支持同城送, <text>修改地址</text>
+  </view>
+</van-submit-bar>
+
+
+  </scroll-view>
+</view>
+
+
+
+
+

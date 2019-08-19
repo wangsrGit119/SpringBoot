@@ -1,0 +1,36 @@
+<!--pages/classify/classify.wxml-->
+<view class="container" >
+
+
+   <!-- 菜单栏详情简要说明顶部渲染 -->
+   <view class="introduce"> 
+   本店暂不支持在线付款哦~ <van-icon name="like" color='red' />  </view>
+
+   <scroll-view scroll-y="true" class="left" >
+   <!-- 菜单栏左侧 -->
+        <van-badge-group :active="active"  >
+          <view wx:for="{{dataItems}}"  wx:key="typeId" >
+             <van-badge title="{{item.name}}" info="{{item.totalNum}}" data-type-id="{{item.id}}" bindtap="goodsItem" />
+          </view>
+        </van-badge-group>
+   </scroll-view>
+
+  <!-- 菜单栏右侧-->
+<view scroll-y="true" class="right" >
+      <view id='rigthid'>
+        < view wx:for="{{foodList}}" wx:for-item="goods"  wx:key="goodsId">
+          <view class='area'>
+              <image mode="widthFix" bindtap='toDetailInfoPage' data-goods-detail-info="{{goods}}" src='{{goods.goodsImage}}' style='background:#faa33a;width:100%;border-radius:80%;' />
+              <view class='text_ds01'>
+                {{goods.goodsPrice}}元 
+                </view>
+              <view class='text_ds02'>{{goods.goodsName}}</view>
+          </view>
+        </view>
+    </view>
+</view>
+
+
+
+</view>
+

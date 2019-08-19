@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wangsr.mapper.CartInfoManager" >
+
+
+<resultMap type="cn.wangsr.cartInfoDo.CartInformationDo" id="cartInfoMap">
+	 <id column="id"  property="id"/>
+	 <result column="goodsId"  property="goodsId"/>
+	 <result column="goodsCount"  property="goodsCount"/>
+	 <result column="personalOpenId" property="onlyId"/>
+</resultMap>
+
+	
+<select id="getMyCartInfoByOnlyId" parameterType="java.lang.String" resultMap="cartInfoMap">
+	SELECT
+		id,
+		goodsId,
+		goodsCount,
+		personalOpenId
+	FROM
+		`shopping-all-cart` sac
+	WHERE
+		sac.personalOpenId = #{onlyId}
+
+</select>	
+
+<insert id="addInfoToMyCart" parameterType="cn.wangsr.cartInfoDo.CartInformationDo">
+
+	REPLACE INTO `shopping-all-cart` (
+			id,
+			goodsId,
+			goodsCount,
+			personalOpenId
+		)
+		VALUES
+			(
+			    #{id},
+				#{goodsId},
+				#{goodsCount},
+				#{onlyId}
+			);
+
+</insert>
+
+<delete id="deleteInfoFromCart"  >
+	DELETE 
+	FROM
+		`shopping-all-cart`
+	WHERE
+		goodsId =#{goodsId,jdbcType=INTEGER}
+	AND personalOpenId =#{userOnlyId,jdbcType=VARCHAR}
+
+</delete>
+
+</mapper>

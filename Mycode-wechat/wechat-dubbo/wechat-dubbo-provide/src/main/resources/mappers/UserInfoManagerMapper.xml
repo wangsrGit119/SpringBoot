@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wangsr.mapper.UserInfoManager">
+
+
+
+
+
+
+
+
+<select id="getUserInfoByOpneId" parameterType="java.lang.String" resultType="cn.wangsr.userDo.WechatUserInfoDo">
+	
+	SELECT
+	sam.id,
+	sam.nickname,
+	sam.country,
+	sam.province,
+	sam.city,
+	sam.account,
+	sam.redPackets,
+	sam.receiptAddress,
+	sam.gender,
+	sam.openId,
+	sam.avatarUrl
+	FROM
+		`shopping-all-myinfo` sam
+	WHERE
+		sam.openId = #{openId}
+	
+</select>
+
+<insert id="addUserInfo" parameterType="cn.wangsr.userDo.WechatUserInfoDo">
+
+
+		INSERT INTO `shopping-all-myinfo` (
+			nickname,
+			country,
+			province,
+			city,
+			account,
+			redPackets,
+			receiptAddress,
+			gender,
+			openId,
+			avatarUrl
+		)
+		VALUES
+			(
+				#{nickname},
+				#{country},
+				#{province},
+				#{city},
+				#{account},
+				#{redPackets},
+				#{receiptAddress},
+				#{gender},
+				#{openId},
+				#{avatarUrl}
+			)
+
+</insert>
+
+<update id="updateUserInfo" parameterType="cn.wangsr.userDo.WechatUserInfoDo">
+
+		UPDATE `shopping-all-myinfo` sam
+		<trim prefix="set" suffixOverrides=",">  
+			<if test="receiptAddress!=null" >
+			sam.receiptAddress = #{receiptAddress},
+			</if>
+			 <if test="redPackets!=null">
+			  sam.redPackets = #{redPackets},
+			 </if>
+			<if test="account!=null">
+			 sam.account = #{account},
+			</if>
+		</trim>
+		WHERE
+			sam.openId = #{openId}
+</update>
+
+
+
+
+</mapper>

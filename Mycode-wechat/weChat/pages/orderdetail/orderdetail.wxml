@@ -1,0 +1,45 @@
+<!--pages/orderdetail/orderdetail.wxml-->
+<wxs src="../../tools/datautils.wxs" module="datautils" />
+<wxs src="../../tools/dateutils.wxs" module="dateutils" />
+<van-nav-bar title="订单详情" left-text="返回" left-arrow
+bind:click-left="onClickLeft" />
+<view class='orderDetails'>
+
+<view wx:for="{{orderDetails}}" wx:key="orderDetails.id" class='details_top'>
+    <van-tag round >下单时间：{{dateutils.dateTransfer(item.orderTime)}}</van-tag>
+    <van-tag  round   >订单编号：{{item.id}}</van-tag>
+    <view wx:if="{{item.orderStatus==0}}">
+      <van-tag mark type="primary" custom-class	="orderStatus" >订单类型：等待接单</van-tag>
+    </view>
+    <view wx:if="{{item.orderStatus==1}}">
+    <van-tag mark type="success" custom-class	="orderStatus" >订单类型：订单已接</van-tag>
+    </view>
+    <view wx:if="{{item.orderStatus==2}}">
+    <van-tag mark type="danger" custom-class	="orderStatus" >订单类型：交易失败</van-tag>
+    </view>
+
+    
+   
+    <view wx:for="{{datautils.stringToObject(item.orderDetail)}}" wx:key="goodsDetails.id" wx:for-item="item2" >
+      <van-card 
+      num="{{datautils.stringToObject(item2).goodsCount}}" 
+      price="{{datautils.stringToObject(item2).goodsPrice}}"
+      desc="{{datautils.stringToObject(item2).goodsDescription}}" 
+      title="{{datautils.stringToObject(item2).goodsName}}" 
+      thumb="{{datautils.stringToObject(item2).goodsImage }}"
+      />
+     
+    </view>
+    
+
+</view>
+
+
+
+
+
+
+
+</view>
+
+

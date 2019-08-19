@@ -1,0 +1,101 @@
+<!--index.wxml-->
+<van-notify id="myself_set_notice" />
+<van-nav-bar title="湾湾点单"  right-text="{{onClickRightBar}}" left-arrow
+bind:click-left="onClickLeft" bind:click-right="onClickRight"/>
+<van-notice-bar
+  mode="closeable" backgroundColor="#07c160"
+  text="本店铺自成立以来收到了广大顾客的好评，因此店铺决定在本月最后一周周末举行顾客自选三件商品均3折出售的活动。"
+/>
+<!-- 搜索 -->
+<van-search
+  value="{{ value }}"
+  placeholder="请输入搜索关键词"
+  show-action
+  bind:search="onSearch"
+  bind:cancel="onCancel"
+/>
+<!-- 滚动图 -->
+   <view class="page-section page-section-spacing swiper"  >
+      <swiper   indicator-color="blue" style="height:230px;"
+        indicator-dots="{{indicatorDots}}" autoplay="true" circular="false" vertical="{{vertical}}"
+        interval="{{interval}}" duration="{{duration}}" previous-margin="0px" next-margin="0px">
+        <block wx:for="{{background}}" wx:key="backgroundId" >
+          <swiper-item  >
+            <view  class="swiper-item {{item.it}}"><image src='{{item.image}}' style='width:100%;' /></view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+<view style="margin-top:30px;display:flex">
+<!-- 轻提示加载器 -->
+<van-toast  id="van-toast" />
+  <view><van-icon name="star-o" info="99+" size="22px" /> 店铺评分 </view>\n \n
+  <van-rate
+    value="{{ 4 }}"
+    size="{{ 25 }}"
+    count="{{ 6 }}"
+    color="#07c160"
+    void-color="#ceefe8"
+    bind:change="forShopRate"
+  />
+</view>
+<van-panel title="销量排行榜"  status="热销榜第一">
+  <view>
+      <van-card
+      num="99+"
+      price="35.00"
+      desc=""
+      tag="热销"
+      title="香煎秋刀鱼"
+      thumb="https://ws1.sinaimg.cn/large/006olMfyly1fyrb1wgtu4j305c05cgnh.jpg"
+    />
+  </view>
+</van-panel>
+<van-panel   status="热销榜第二">
+  <view>
+      <van-card
+      num="99+"
+      price="18.00"
+      desc=""
+      tag="热销"
+      title="三色发糕"
+      thumb="https://ws1.sinaimg.cn/large/006olMfyly1fyrax9av98j305e05bmyz.jpg"
+    />
+  </view>
+</van-panel>
+<van-panel   status="热销榜第三">
+  <view>
+      <van-card
+      num="99+"
+      price="15.00"
+      desc=""
+      tag="热销"
+      title="骨头汤"
+      thumb="https://ws1.sinaimg.cn/large/006olMfyly1fyrb3ebv0uj305d058abt.jpg"
+    />
+  </view>
+</van-panel>
+
+<view class="container" style="opacity:{{0.65}}" >
+
+
+
+
+<!-- 隐藏验证个人信息 -->
+<!-- 用户信息 -->
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 点击获取用户授权 </button>
+    <block wx:else>
+      <!-- <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image> -->
+      <!-- <text class="userinfo-nickname">{{userInfo.nickName}}</text> -->
+    </block>
+  </view>
+
+
+ 
+
+
+  <view class="usermotto">
+    <button class="user-motto" hidden='true' >{{motto}}   {{userInfo.nickName}}</button>
+  </view>
+</view>

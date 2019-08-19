@@ -1,0 +1,14 @@
+var objectToString = function (d) {
+  var result=JSON.stringify(d);
+  return result;
+}
+
+var stringToObject = function (d) {
+  var result = JSON.parse(d);
+  return result;
+}
+
+module.exports = {
+  objectToString: objectToString,
+  stringToObject: stringToObject
+};

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wangsr.mapper.ClassifyGoodsItems"> 
+
+	<resultMap id="goodsItems" type="cn.wangsr.goodsDo.GoodsItemsDo">
+		<id  column="id" property="id" />
+		<result column="name"  property="name" />
+		<result column="total"  property="totalNum"/>
+	</resultMap>
+
+
+
+<select id="getAllGoodsItems" resultMap="goodsItems">
+		SELECT
+		sai.id,
+		sai.`name`,
+		count(sag.`goods-items-id`) as total
+	FROM
+		`shopping-all-items` AS sai
+	 LEFT  JOIN `shopping-all-goods` sag ON sai.id = sag.`goods-items-id` GROUP BY sai.id
+</select>
+
+</mapper>

@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "van-collapse": "../../components/dist/collapse/index",
+    "van-collapse-item": "../../components/dist/collapse-item/index",
+    "van-dialog": "../../components/dist/dialog/index",
+    "van-icon": "../../components/dist/icon/index",
+    "van-swipe-cell": "../../components/dist/swipe-cell/index",
+    "van-popup": "../../components/dist/popup/index",
+    "van-area": "../../components/dist/area/index"
+  }
+}

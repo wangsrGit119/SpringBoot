@@ -1,0 +1,51 @@
+/* pages/classify/classify.wxss */
+.container{position: absolute;height:130%;width:100%;background: url('https://ws1.sinaimg.cn/large/006olMfyly1fyqxdupykuj30k70qujs2.jpg')  ; background-size:cover;opacity: 0.95}
+
+
+
+
+/* 左侧菜单栏 */
+.left{ position: absolute; left: 0; top: 0; height: 100%;background:rgba(228, 225, 225, 0.425) ; width: 90px; text-align: center;font-size:28rpx;}
+
+
+/* 提示语 */
+.introduce{position: absolute;left: 90px;top: 0; height: 60rpx;width: 100%;background: rgba(206, 224, 65, 0.452);font-size: 14px;font-family: 'STKaiti';padding-top: 13rpx;}
+
+
+/* 右侧 */
+.right{display: flex;position: absolute;left: 90px;top: 38px}
+
+#rigthid{
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  /* align-content:center; */
+  justify-content:space-between;
+}
+ 
+#rigthid .area{
+  width:30vw;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+#rigthid .area .icon_set{
+  width: 100rpx;
+  margin-left: 50rpx;
+}
+#rigthid .area .text_ds01{
+  text-align: center;
+  font-size: 35rpx;
+
+}
+/* 加减按钮 */
+.stepper .van-stepper__minus, .stepper .van-stepper__plus{
+  width:25px;
+  height: 30px;
+}
+
+
+#rigthid .area .text_ds02{
+  text-align: center;
+  font-size: 30rpx;
+}

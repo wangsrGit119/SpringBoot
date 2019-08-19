@@ -1,0 +1,26 @@
+/* pages/my/my.wxss */
+
+/* 背景 */
+.myInfo{position: absolute;height:100%;width:100%;background: url('https://ws1.sinaimg.cn/large/006olMfyly1fyqxdupykuj30k70qujs2.jpg') no-repeat ; background-size: 100% 100%;opacity: 0.78}
+
+/* 顶部个人信息显示区域 */
+.myInfo .my_top{position: absolute;top:0;display: flex;flex-direction: row;background-color:rgba(78, 22, 22, 0.13);width: 100%;height: 180rpx;padding-top:10px; }
+.myInfo .my_top image{margin-left: 20rpx;width: 150rpx;height: 150rpx;}
+.myInfo .my_top .my_top_right {margin-left: 20rpx;width:100%;height:90%;display: flex;flex-direction: column;align-items: flex-start;}
+
+
+/* 中间我的当前店铺资产回显 */
+
+.myInfo .my_middle{
+  position: absolute;
+  top:250rpx;
+ 
+  }
+
+.myInfo .my_bottom{
+   position: absolute;
+    top:700rpx;
+}
+.myInfo .my_middle .van-collapse-item__content{
+  text-align: center;
+}

@@ -1,0 +1,8 @@
+/* pages/orderdetail/orderdetail.wxss */
+
+.orderDetails{position: absolute;height:150%;width:100%;background: url('https://ws1.sinaimg.cn/large/006olMfyly1fyqxdupykuj30k70qujs2.jpg') no-repeat ; background-size: 100% 100%;opacity: 0.95}
+
+.orderDetails .details_top {
+  padding-top: 10px;
+  }
+/* .orderDetails .orderStatus{margin-right: 0%} */

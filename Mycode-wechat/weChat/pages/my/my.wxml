@@ -1,0 +1,65 @@
+<!--pages/my/my.wxml-->
+
+<view class="myInfo">
+
+<!-- 我的个人信息回显  顶部 -->
+  <view class='my_top'>
+    <image src='{{userInfo.avatarUrl}}'></image>
+    <view class='my_top_right'>
+        <view class='nickName'>昵称：\t\t{{userInfo.nickName}}</view>
+        <view class='gender' wx:if="{{userInfo.gender==1}}" >性别：\t\t男</view>
+        <view class='gender' wx:else="{{userInfo.gender==2}}" >性别：\t\女</view>
+        <view class='address'  >地址：\t\t <text>{{userInfo.province}}\t\t{{userInfo.city}}</text></view>
+    </view>
+  </view>
+
+  <!-- 中间部分  当前店铺信息 资产 等显示 -->
+
+  <view class='my_middle'>
+      <van-collapse value="{{ activeNames }}" bind:change="onChange">
+        <van-collapse-item name="1" title="我的账户" name="1" icon="gold-coin">
+        {{my_info_shopping.account}}元
+        </van-collapse-item>
+        <van-collapse-item title="我的红包" name="2" icon="debit-pay" >
+        {{my_info_shopping.redPackets}}元
+        </van-collapse-item>
+        <van-collapse-item title="收货地址" name="3" icon="location" >
+         <van-icon  name="location"></van-icon>
+          {{my_info_shopping.receiptAddress}} 
+        </van-collapse-item>
+        <van-collapse-item title="我的收藏" name="4" icon="shop-collect" disabled >
+          没有内容没有内容待添加  没有内容没有内容待添加  没有内容没有内容待添加
+        </van-collapse-item>
+      </van-collapse>
+  </view>
+
+<!-- 底部 -->
+
+    <view class='my_bottom'>
+        <van-collapse value="{{ activeNames }}" bind:change="editAddress">
+            <van-collapse-item title="修改我的收货地址" name="9"  icon="edit"  >
+          没有内容没有内容待添加  没有内容没有内容待添加  没有内容没有内容待添加
+            </van-collapse-item>
+          </van-collapse>
+           <van-collapse value="{{ activeNames }}" bind:change="getMyOrderInfo">
+            <van-collapse-item title="我的订单信息" name="10"  icon="records"  >
+             没有内容没有内容待添加  没有内容没有内容待添加  没有内容没有内容待添加
+            </van-collapse-item>
+          </van-collapse>
+    </view>
+</view>
+
+<!-- 弹出层 -->
+<van-popup 
+show="{{ show }}" 
+position="bottom" 
+overlay="{{ true }}"
+bind:close="onClose">
+  
+
+
+<van-area area-list="{{ areaList }}" bind:cancel="onClose" bind:confirm="onConfirm" columns-num="{{ 3 }}"  />
+
+
+</van-popup>
+

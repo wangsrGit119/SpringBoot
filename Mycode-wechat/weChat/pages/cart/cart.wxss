@@ -1,0 +1,20 @@
+/* pages/cart/cart.wxss */
+
+
+
+/* 无数据 */
+
+
+.emptyParent01{position: absolute;width:100%;height:100%;text-align: center;padding-top:40%;}
+.emptyParent01 image{width: 300rpx;height: 300rpx;}
+
+/* 有数据 */
+.emptyParent02{position: absolute;height:150%;width:100%;background: url('https://ws1.sinaimg.cn/large/006olMfyly1fyqxdupykuj30k70qujs2.jpg') no-repeat ; background-size: 100% 100%;opacity: 0.95}
+.emptyParent02 .goodsResult{display: flex;padding-top: 10rpx;}
+.emptyParent02 .goodsResult checkbox{margin-top:90rpx;margin-left: 10rpx;font-size: 8;}
+.emptyParent02 .goodsResult  checkbox .wx-checkbox-input{border-radius: 50%;}
+.emptyParent02 .goodsResult  van-card{width: 90%;margin-right: 10px;}
+
+
+
+.emptyParent02 .van-submit-bar .van-checkbox{margin-left: 15px;}

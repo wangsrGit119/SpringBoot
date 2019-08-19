@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wangsr.mapper.adminMapper.AdminOrderManager">
+
+
+    <resultMap id="adminInfoMap" type="cn.wangsr.adminOrderDo.AdminOrderInfoDo">
+        <id column="id" property="orderNum" />
+        <result column="orderDetail" property="orderDetail"/>
+        <result column="orderStatus" property="orderStatus"/>
+        <result column="orderTime" property="orderTime"/>
+        <result column="receiptAddress" property="receiptAddress"/>
+        <result column="openId" property="openId"/>
+        <result column="nickname" property="nickName"/>
+        <result column="userAddress" property="userAddress"/>
+
+    </resultMap>
+
+
+    <select id="getOrderInfoByKeys" parameterType="java.lang.String"  resultMap="adminInfoMap">
+
+        SELECT
+            sao.id,
+            sao.orderDetail,
+            sao.orderStatus,
+            sao.orderTime,
+            sam.receiptAddress,
+            sam.openId,
+            sam.nickname,
+            GROUP_CONCAT( sam.province, ' ', sam.city, ' ', sam.country ) AS userAddress
+        FROM
+            `shopping-all-orderinfo` sao
+            LEFT JOIN `shopping-all-myinfo` sam ON sao.personalOpenId = sam.openId
+        WHERE
+             sao.orderStatus IN
+              <foreach collection="allStatus" item="status" separator="," open="(" close=")">
+                  #{status}
+              </foreach>
+
+              <if test="keys != null ">
+                  AND sam.nickname LIKE CONCAT( '%', #{keys}, '%' )
+              </if>
+
+              <if test="startTime !=null and endTime !=null ">
+                  AND sao.orderTime BETWEEN #{startTime} AND #{endTime}
+              </if>
+
+
+        GROUP BY
+            sao.id
+        ORDER BY
+        orderTime DESC
+
+    </select>
+
+    <update id="updateOrderStatus"  >
+
+          UPDATE `shopping-all-orderinfo`
+            SET orderStatus = #{status}
+            WHERE
+            id IN
+            <foreach collection="orderNums" item="orderNum" separator="," open="(" close=")">
+                #{orderNum}
+            </foreach>
+    </update>
+
+</mapper>

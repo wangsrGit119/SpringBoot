@@ -1,0 +1,13 @@
+{
+  "usingComponents": {
+    "van-notice-bar": "../../components/dist/notice-bar/index",
+    "van-notify": "../../components/dist/notify/index",
+    "van-nav-bar": "../../components/dist/nav-bar/index",
+    "van-search": "../../components/dist/search/index",
+    "van-rate": "../../components/dist/rate/index",
+    "van-icon": "../../components/dist/icon/index",
+    "van-toast": "../../components/dist/toast/index",
+    "van-card": "../../components/dist/card/index",
+    "van-panel": "../../components/dist/panel/index"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "van-badge": "../../components/dist/badge/index",
+    "van-badge-group": "../../components/dist/badge-group/index",
+    "van-notice-bar": "../../components/dist/notice-bar/index",
+    "van-icon": "../../components/dist/icon/index",
+    "van-submit-bar": "../../components/dist/submit-bar/index"
+  }
+}

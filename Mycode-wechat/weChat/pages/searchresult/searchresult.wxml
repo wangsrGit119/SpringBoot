@@ -1,0 +1,15 @@
+<!--pages/searchsearch/searchresult.wxml-->
+<wxs src="../../tools/datautils.wxs" module="datautils" />
+<view wx:for="{{searchResult}}" wx:key="searchResultId" >
+
+<van-card
+  num="{{999}}"
+  price="{{item.goodsPrice}}"
+  desc="{{item.goodsDescription}}"
+  title="{{item.goodsName}}"
+  thumb="{{ item.goodsImage }}"
+  thumb-link="../../pages/goodsdetail/goodsdetail?goodsDetailInfo={{datautils.objectToString(item)}}"
+/>
+
+</view> 
+

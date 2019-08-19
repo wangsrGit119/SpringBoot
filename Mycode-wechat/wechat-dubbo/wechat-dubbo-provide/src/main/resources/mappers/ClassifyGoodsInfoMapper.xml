@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wangsr.mapper.ClassifyGoodsInfo">
+
+<resultMap type="cn.wangsr.goodsDo.GoodsDo" id="goodsInfoMap">
+	<id column="id"  property="id"/>
+	<result column="goodsName" property="goodsName" />
+	<result column="goodsPrice"  property="goodsPrice"/>
+	<result column="goodsImage" property="goodsImage" />
+	<result column="goodsDescription" property="goodsDescription" />
+	<result column="goodsTags"  property="goodsTags"/>
+
+
+</resultMap>
+
+<select id="getGoodsInfoByItemId" parameterType="java.lang.Integer" resultMap="goodsInfoMap" >
+
+		SELECT
+		id,
+		goodsName,
+		goodsPrice,
+		goodsImage,
+		goodsDescription,
+		goodsTags
+	FROM
+		`shopping-all-goods` sag
+	WHERE
+		sag.`goods-items-id` = #{itemId}
+
+</select>
+
+<select id="getGoodsInfoById" parameterType="java.lang.Integer" resultMap="goodsInfoMap">
+	SELECT
+		id,
+		goodsName,
+		goodsPrice,
+		goodsImage,
+		goodsDescription,
+		goodsTags
+	FROM
+		`shopping-all-goods` sag
+	WHERE
+		sag.id = #{id}
+
+</select>
+
+<select id="getGoodsInfoByKeys" parameterType="java.lang.String" resultMap="goodsInfoMap">
+
+SELECT
+		id,
+		goodsName,
+		goodsPrice,
+		goodsImage,
+		goodsDescription,
+		goodsTags
+	FROM
+		`shopping-all-goods` sag
+	WHERE
+		sag.goodsName LIKE CONCAT('%', #{keys}, '%')
+
+</select>
+
+</mapper>
