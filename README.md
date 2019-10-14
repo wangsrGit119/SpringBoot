@@ -26,13 +26,12 @@
 
     - 效果预览
     - ![Alt text](https://images2018.cnblogs.com/blog/1377204/201808/1377204-20180811141223183-585321616.gif)
-
 -  ###  maincloud
  > springcloud微服务架构 及其eureka注册中心集群搭建配置
  
 -  ###  springboot-upload	 
-  -  文件上传 
-  -  springboot全局拦截（controllerAdvice）
-  -  redis配置
+   -  文件上传 
+   -  springboot全局拦截（controllerAdvice）
+   -  redis配置
  
 
