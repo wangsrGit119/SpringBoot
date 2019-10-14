@@ -31,8 +31,8 @@
  > springcloud微服务架构 及其eureka注册中心集群搭建配置
  
 -  ###  springboot-upload	 
-  - 文件上传 
-  - springboot全局拦截（controllerAdvice）
-  - redis配置
+  --  文件上传 
+  --  springboot全局拦截（controllerAdvice）
+  --  redis配置
  
 
