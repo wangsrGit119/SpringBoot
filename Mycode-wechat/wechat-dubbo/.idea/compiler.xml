@@ -14,8 +14,8 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="wechat-dubbo-consume" options="-parameters" />
-      <module name="wechat-dubbo-provide" options="-parameters" />
+      <module name="wechat-dubbo-consume" options="" />
+      <module name="wechat-dubbo-provide" options="" />
     </option>
   </component>
 </project>

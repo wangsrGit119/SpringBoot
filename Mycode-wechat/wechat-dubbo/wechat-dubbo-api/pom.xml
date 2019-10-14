@@ -28,18 +28,18 @@
     </build>
 	
 	  <!--配置私服-->
-	<distributionManagement>
-    <repository>
-        <id>wangsr-release</id>
-        <name>wangsr-release</name>
-        <url>http://115.159.127.105:8084/repository/wangsr-release/</url>
-    </repository>
-    <snapshotRepository>
-        <id>wangsr-snapshot</id>
-        <name>wangsr-snapshot</name>
-        <url>http://115.159.127.105:8084/repository/wangsr-snapshot/</url>
-    </snapshotRepository>
-</distributionManagement>
+    <distributionManagement>
+        <repository>
+            <id>cebon-releases</id>
+            <name>cebon-releases</name>
+            <url>http://192.168.99.243:8081/repository/cebon-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>cebon-snapshots</id>
+            <name>cebon-snapshots</name>
+            <url>http://192.168.99.243:8081/repository/cebon-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 <!--
     <repositories>
         <repository>
