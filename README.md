@@ -15,6 +15,11 @@
  
 -  ###  boot-quartz 
    >    springboot quartz vue druid实现的跨服务器远程命令操作平台
+   - 预览
+       ![Alt text](https://github.com/wangsrGit119/SpringBoot/blob/master/boot-quartz/images/checkTask.png)
+       ![Alt text](https://github.com/wangsrGit119/SpringBoot/blob/master/boot-quartz/images/logs.png)
+       ![Alt text](https://github.com/wangsrGit119/SpringBoot/blob/master/boot-quartz/images/system.png)
+       ![Alt text](https://github.com/wangsrGit119/SpringBoot/blob/master/boot-quartz/images/releaseTask.png)
 
 -  ### SpringSecurity_springBoot2
 
