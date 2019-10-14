@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>系统信息</title>
+    <script src="vue/vue.js" charset="utf-8"></script>
+    <script  type="text/javascript" src="other/jquery.js"></script>
+    <script  type="text/javascript" src="other/common.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="elementUi/index.css">
+    <!-- 引入组件库 -->
+    <script src="elementUi/index.js" charset="utf-8"></script>
+
+</head>
+<body>
+<div id="sysModel">
+    <div>
+        <span>系统监控区</span>
+        <el-divider>{{dateNow}}</el-divider>
+    </div>
+
+    <div style="position: absolute;">
+        <div style="float: left;width: 100px">
+            <span>仪表盘</span>
+        </div>
+        <div class="memoryAva"   style="float: left">
+            <div>
+                <el-progress type="dashboard" :percentage="percentageAva" :colorAva="colorsAva"></el-progress>
+            </div>
+            <el-tag type="warning" effect="dark">可用内存百分比</el-tag>
+        </div>
+        <div class="memory"  style="float: left">
+            <div>
+                <el-progress type="dashboard" :percentage="percentageMemory" :color="colorsMemory"></el-progress>
+            </div>
+            <el-tag type="warning" effect="dark">剩余内存百分比</el-tag>
+        </div>
+    </div>
+    <!--系统信息-->
+    <div class="sys" style="position: absolute;margin-top: 200px" >
+        <div class="left" style="float: left">
+            <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                    <span>系统基本信息</span>
+                </div>
+                <div v-for="item,key in sysInfo" class="text item">
+                <span >
+                    {{item.key}}: &nbsp;&nbsp;  {{item.value}}
+                </span>
+                </div>
+            </el-card>
+        </div>
+        <div class="right" style="float:left;">
+            <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                    <span>linux内存信息</span>
+                </div>
+                <div v-for="item,key in linuxMemoryInfo" class="text item">
+                <span >
+                    {{item.key}}: &nbsp;&nbsp;  {{item.value}}
+                </span>
+                </div>
+            </el-card>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    $(function()
+    {
+        sysVue.loadSysInfo();
+        sysVue.dateNow=formatDate(new Date(),'yyyy-MM-dd hh:mm:ss')
+    });
+
+    var sysVue= new Vue({
+        el: '#sysModel',
+        data: {
+            sysInfo: [
+
+            ],
+            linuxMemoryInfo:[
+
+            ],
+            userInfo:"",
+            percentageMemory:41,//内存剩余
+            percentageAva:67,//可用内存百分比
+            colorsMemory: [
+                {color: '#f53433', percentage: 20},
+                {color: '#e6a23c', percentage: 40},
+                {color: '#5cb87a', percentage: 60},
+                {color: '#1989fa', percentage: 80},
+                {color: '#6f7ad3', percentage: 100}
+            ],
+            colorsAva: [
+                {colorAva: '#f53433', percentage: 20},
+                {colorAva: '#e6a23c', percentage: 40},
+                {colorAva: '#5cb87a', percentage: 60},
+                {colorAva: '#1989fa', percentage: 80},
+                {colorAva: '#6f7ad3', percentage: 100}
+            ],
+            dateNow:new Date(),
+        },
+        methods: {
+            loadSysInfo: function () {
+                let that = this;
+                $.ajax({
+                    url: '/quartz/getSysInfo',
+                    type: 'GET',
+                    cache: false,
+                    success: function (res) {
+                        let tep = JSON.parse(res);
+                        console.log(tep)
+                        let tepMap = {key: "", value: ""};
+                        let map = new Map()
+                        map.set("项目路径", tep.data.sysInfo["user.dir"])
+                        map.set("系统名称", tep.data.sysInfo["os.name"])
+                        map.set("系统版本", tep.data.sysInfo["os.version"])
+                        map.set("用户名称", tep.data.sysInfo["user.name"])
+                        map.set("用户时区", tep.data.sysInfo["user.timezone"])
+                        map.forEach((x, y) => {
+                            tepMap = {key: y, value: x};
+                            sysVue.sysInfo.push(tepMap)
+                        })
+
+                        if(res.indexOf("linuxMemoryInfo") != -1){
+                            console.log("pp")
+                            let tepLinuxMap = {key: "", value: ""};
+                            let mapLinux = new Map()
+                            mapLinux.set("MemFree", tep.data.linuxMemoryInfo["MemFree:"])
+                            mapLinux.set("MemTotal", tep.data.linuxMemoryInfo["MemTotal:"])
+                            mapLinux.set("MemAvailable", tep.data.linuxMemoryInfo["MemAvailable:"])
+                            mapLinux.set("SwapFree", tep.data.linuxMemoryInfo["SwapFree:"])
+
+
+                            mapLinux.forEach((x, y) => {
+                                tepLinuxMap = {key: y, value: x};
+                                sysVue.linuxMemoryInfo.push(tepLinuxMap)
+                            })
+                            sysVue.percentageMemory=(parseFloat(tep.data.linuxMemoryInfo["MemFree:"])/parseFloat(tep.data.linuxMemoryInfo["MemTotal:"])).toFixed(4)*100;
+                            sysVue.percentageAva=(parseFloat(tep.data.linuxMemoryInfo["MemAvailable:"])/parseFloat(tep.data.linuxMemoryInfo["MemTotal:"])).toFixed(4)*100;
+                        }
+                        console.log("Linux:",tep.data.linuxMemoryInfo)
+
+                    }
+                })
+            },
+        },
+        watch: {
+
+        },
+        mounted() {
+
+        },
+
+    })
+
+</script>
+<style>
+    .text {
+        font-size: 14px;
+    }
+
+    .item {
+        margin-bottom: 18px;
+    }
+
+    .clearfix:before,
+    .clearfix:after {
+        display: table;
+        content: "";
+    }
+    .clearfix:after {
+        clear: both
+    }
+
+    .box-card {
+        width: 480px;
+    }
+    .is-selected {
+        color: #1989FA;
+    }
+
+</style>
+</body>
+</html>

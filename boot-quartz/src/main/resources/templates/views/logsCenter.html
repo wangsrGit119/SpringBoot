@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>日志中心</title>
+    <script src="vue/vue.js" charset="utf-8"></script>
+    <script  type="text/javascript" src="other/jquery.js"></script>
+    <script  type="text/javascript" src="other/common.js"></script>
+    <script  type="text/javascript" src="other/jquery.media.js"></script>
+
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="elementUi/index.css">
+    <!-- 引入组件库 -->
+    <script src="elementUi/index.js" charset="utf-8"></script>
+</head>
+<body>
+<div id="logsModel">
+    <div>
+        <el-badge :value="logsCount" class="item" >
+            <el-button size="small">日志记录</el-button>
+        </el-badge>
+        <el-divider>{{dateNow}}</el-divider>
+    </div>
+    <el-row  >
+
+        <el-col :span="8" >
+            <div class="logsName logsTitle">
+                <el-button type="primary" :loading="true">日志名称</el-button>
+            </div>
+             <div  style="height:600px;overflow-y:auto">
+                 <div v-for="item,index in logsHistory ">
+                     <el-button  size="mini" type="success" round> {{item[0]}}</el-button>
+                     <el-button  size="mini" icon="el-icon-view" circle @click="scanUrl(item[1])"></el-button>
+                     <el-divider></el-divider>
+                 </div>
+             </div>
+
+        </el-col>
+
+        <el-col :span="16">
+            <div class="logScan logsTitle">
+                <el-button type="primary" :loading="true">日志浏览</el-button>
+            </div>
+            <div class="grid-content bg-purple" >
+              <iframe id="logsFrame" class="logsFrame" :src="defaultLogsSrc" width='100%' height='600' frameborder='0' ></iframe>
+            </div>
+        </el-col>
+    </el-row>
+
+
+</div>
+
+<script>
+    $(function () {
+        vue.dateNow=formatDate(new Date(),'yyyy-MM-dd hh:mm:ss');
+        let logs=parent.logsMap;
+        vue.logsHistory=logs;
+        vue.logsCount=logs.size;
+    })
+    var vue = new Vue({
+        el:"#logsModel",
+        data:{
+            defaultLogsSrc:'',
+            dateNow:new Date(),
+            logsHistory:'',
+            logsCount:0,
+            hasLogs:false,
+        },
+        methods: {
+            onSubmit() {
+                console.log('submit!');
+            },
+            scanUrl(val){
+                let url="http://"+window.location.host;
+                let tepUrl=url+"/quartz/scanFile?path="+val;
+                vue.defaultLogsSrc=tepUrl;
+            },
+        }
+    })
+
+</script>
+<style>
+    .el-row {
+        margin-bottom: 20px; &:last-child {
+                                  margin-bottom: 0;
+                              }
+    }
+    .el-col {
+        border-radius: 4px;
+    }
+    .bg-purple-dark {
+        background: #99a9bf;
+    }
+    .bg-purple {
+        background: #d3dce6;
+    }
+    .bg-purple-light {
+        background: #e5e9f2;
+    }
+    .grid-content {
+        border-radius: 4px;
+        min-height: 36px;
+    }
+    .row-bg {
+        padding: 10px 0;
+        background-color: #c6e2ff;
+    }
+    .logsTitle{
+        margin-bottom: 20px;
+    }
+
+</style>
+</body>
+</html>

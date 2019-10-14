@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>managerJobs</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="vue/vue.js" charset="utf-8"></script>
+    <script  type="text/javascript" src="other/jquery.js"></script>
+    <script  type="text/javascript" src="other/common.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="elementUi/index.css">
+    <!-- 引入组件库 -->
+    <script src="elementUi/index.js" charset="utf-8"></script>
+
+    <style>
+
+    </style>
+
+</head>
+<body>
+<div id="jobInfo">
+    <div>
+        <span>任务管理区</span>
+        <el-divider>{{dateNow}}</el-divider>
+    </div>
+
+    <div class="tabContain">
+        <div class="top">
+            <el-input prefix-icon="el-icon-search" v-model="jobSearch.details"  placeholder="请输入内容" style="width:200px;margin-top:20px"></el-input>
+            <el-button type="primary" round @click="search" >搜索</el-button>
+            </span>
+        </div>
+
+        <div style="margin-top:15px">
+            <el-table
+                    ref="testTable"
+                    :data="tableData"
+                    style="width:100%"
+                    border
+            >
+                <el-table-column prop="tag" label="任务类型" width="100" :filters="[{ text: 'CRON', value: 'CRON' }, { text: 'SIMPLE', value: 'SIMPLE' }]" :filter-method="filterTag" filter-placement="bottom-end">
+                    <template slot-scope="scope">
+                        <el-tag :type="scope.row.triggerType === 'CRON' ? 'primary' : 'success'" close-transition>{{scope.row.triggerType}}</el-tag>
+                    </template>
+                </el-table-column>
+
+                <el-table-column
+                        prop="jobName"
+                        label="任务名称"
+                        sortable
+                        show-overflow-tooltip>
+                </el-table-column>
+
+                <el-table-column
+                        prop="jobGroup"
+                        label="任务所在组"
+                        sortable>
+                </el-table-column>
+
+                <el-table-column
+                        prop="jobClassName"
+                        label="任务类名"
+                        sortable>
+                </el-table-column>
+
+                <el-table-column
+                        prop="triggerName"
+                        label="触发器名称"
+                        sortable>
+                </el-table-column>
+
+                <el-table-column
+                        prop="triggerGroup"
+                        label="触发器所在组"
+                        sortable>
+                </el-table-column>
+
+                <el-table-column
+                        prop="triggerState"
+                        label="触发器状态"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="triggerType"
+                        label="触发器类型"
+                        sortable>
+                </el-table-column>
+
+                <el-table-column
+                        prop="repeatCount"
+                        label="首次执行后的重复次数"
+                        sortable>
+                </el-table-column>
+                <el-table-column
+                        prop="repeatInterval"
+                        label="首次执行等待时间/分钟"
+                        sortable>
+                </el-table-column>
+
+
+
+                <el-table-column
+                        prop="cronExpress"
+                        label="表达式"
+                        sortable>
+                </el-table-column>
+
+                <el-table-column
+                        prop="timeZoneId"
+                        label="时区"
+                        sortable>
+                </el-table-column>
+
+                <el-table-column label="操作" width="300">
+                    <template scope="scope">
+                        <el-button  v-show="scope.row.triggerState !== 'PAUSED'"
+
+                                    size="small"
+                                    type="warning"
+                                    @click="handlePause(scope.$index, scope.row)">暂停</el-button>
+
+                        <el-button v-show="scope.row.triggerState === 'PAUSED'"
+                                   size="small"
+                                   type="info"
+                                   @click="handleResume(scope.$index, scope.row)">恢复</el-button>
+
+                        <el-button
+                                size="small"
+                                type="danger"
+                                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+
+                        <el-button
+                                size="small"
+                                type="success"
+                                @click="handleUpdate(scope.$index, scope.row)">修改</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+
+            <div align="center">
+                <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="currentPage"
+                        :page-sizes="[10, 20, 30, 40]"
+                        :page-size="pagesize"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="totalCount">
+                </el-pagination>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+
+    $(function () {
+        vue.loadData(vue.currentPage, vue.pagesize);
+        vue.dateNow=formatDate(new Date(),'yyyy-MM-dd hh:mm:ss')
+    })
+
+    var vue = new Vue({
+        el:"#jobInfo",
+        data: {
+            //表格当前页数据
+            tableData: [],
+            //请求的URL
+            url:'',
+            //默认每页数据量
+            pagesize: 10,
+            //当前页码
+            currentPage: 0,
+            //查询的页码
+            start: 1,
+            //默认数据总数
+            totalCount: 1000,
+            jobSearch:{
+                details:""
+            },
+            dateNow:new Date()
+        },
+
+        methods: {
+            filterTag(value, row) {  //条件筛选
+                return row.triggerType === value;
+            },
+            //加载所有job
+            loadData: function(pageNum, pageSize){
+                let that=this;
+                $.ajax({
+                    url:'/quartz/loadAllJobAndTrigger',
+                    type:'GET',
+                    data:{pageNum:pageNum,pageSize:pageSize,userInfo:parent.document.getElementById("username").innerText},
+                    cache:false,
+                    success:function (res) {
+                        let tep=JSON.parse(res);
+                        that.tableData = tep.data.list;
+                        that.totalCount = tep.data.total;
+                    }
+                })
+            },
+
+            //单行删除
+            handleDelete: function(index, row) {
+                let that=this;
+                $.ajax({
+                    url:'/quartz/deleteByKey',
+                    type:'post',
+                    data:{"jobName":row.jobName,"jobGroup":row.jobGroup},
+                    cache:false,
+                    success:function (res) {
+                        vue.loadData( that.currentPage, that.pagesize);
+                    }
+                })
+            },
+
+            //暂停任务
+            handlePause: function(index, row){
+                let that=this;
+                $.ajax({
+                    url:'/quartz/pauseJobByKey',
+                    type:'post',
+                    data:{"jobName":row.jobName,"jobGroup":row.jobGroup},
+                    cache:false,
+                    success:function (res) {
+                        vue.loadData( that.currentPage, that.pagesize);
+                    }
+                })
+            },
+
+            //恢复任务
+            handleResume: function(index, row){
+                let that=this;
+                $.ajax({
+                    url:'/quartz/resumeJobByKey',
+                    type:'post',
+                    data:{"jobName":row.jobName,"jobGroup":row.jobGroup},
+                    cache:false,
+                    success:function (res) {
+                        vue.loadData( that.currentPage, that.pagesize);
+                    }
+                })
+            },
+
+            //搜索
+            search: function(){
+                vue.loadData(this.currentPage, this.pagesize);
+            },
+
+
+
+            //每页显示数据量变更
+            handleSizeChange: function(val) {
+                this.pagesize = val;
+                this.loadData(this.currentPage, this.pagesize);
+            },
+
+            //页码变更
+            handleCurrentChange: function(val) {
+                this.currentPage = val;
+                this.loadData(this.currentPage, this.pagesize);
+            },
+
+
+        }
+    });
+
+    // //定时载入数据
+    // let loadData = setInterval(function(){
+    //     vue.loadData(vue.currentPage, vue.pagesize);
+    // },2000)
+
+</script>
+
+</body>
+</html>

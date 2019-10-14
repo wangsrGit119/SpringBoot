@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon" />
+    <script src="vue/vue.js" charset="utf-8"></script>
+    <script  type="text/javascript" src="other/jquery.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="elementUi/index.css">
+    <!-- 引入组件库 -->
+    <script src="elementUi/index.js" charset="utf-8"></script>
+
+</head>
+<body>
+<div id="indexModel">
+    <div class="mainContainHeader">
+        <el-menu :default-active="activeIndex"
+                 mode="horizontal"
+                 @select="handleSelect"
+                 background-color="#545c64"
+                 text-color="#fff"
+                 active-text-color="#ffd04b">
+            <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.url">
+                <div   v-if = "item.navItem  === 'userName'"  >
+                    <label id="username">{{userInfo}}</label> <el-avatar :size="20" :src="circleUrl"></el-avatar>
+                </div>
+                <div   v-if = "item.navItem  !== 'userName'" >
+                    {{ item.navItem }}
+                </div>
+            </el-menu-item>
+        </el-menu>
+    </div>
+
+    <div class="mainContainIframe">
+        <iframe class="frame"  :src="defaultFrameSrc"   frameborder="0"></iframe>
+    </div>
+
+</div>
+<script>
+    $(function () {
+        indexVue.getInitSocket();
+    })
+    var logsMap=new Map();
+    var indexVue= new Vue({
+        el: '#indexModel',
+        data: {
+            items: [
+                { message: 'Foo' },
+                { message: 'Bar' }
+            ],
+
+            defaultFrameSrc:"/quartz/systemMonitor",
+            activeIndex: '/quartz/systemMonitor',
+            navList:[
+                {url:'',navItem:'userName'},
+                {url:'/quartz/systemMonitor',navItem:'系统监控'},
+                {url:'/quartz/releaseTask',navItem:'发布任务'},
+                {url:'/quartz/jobManager',navItem:'任务管理'},
+                {url:'/quartz/logsCenter',navItem:'日志中心'},
+                {url:'/quartz/manageCenter',navItem:'管理中心'},
+
+            ],
+            userInfo:sessionStorage.getItem("username"),
+            circleUrl:"image/favicon.ico",
+
+        },
+        methods: {
+            handleSelect(key, keyPath) {
+                indexVue.defaultFrameSrc=key;
+            },
+            handleSelect2(){
+                alert("aaa")
+            },
+            getInitSocket(){
+                const mysocket = "ws://"+document.location.host+"/quartz/sys/webSocket/"+indexVue.userInfo;//ws地址
+                this.websocket = new WebSocket(mysocket);
+                this.websocket.onopen = this.websocketonopen;
+                this.websocket.onerror = this.websocketonerror;
+                this.websocket.onmessage = this.websocketonmessage;
+                this.websocket.onclose = this.websocketonclose;
+            },
+            websocketonopen (ev) {
+                console.log('链接打开');
+            },
+            websocketonclose(ev) {
+                console.log('连接关闭');
+            },
+            websocketonmessage(ev) {
+                console.log('服务端消息：'+ev.data);
+                this.$notify.info({
+                    title: '消息',
+                    message: '日志文件已经产生,请到日志中心查看'
+                });
+                let tep= JSON.parse(ev.data)
+                logsMap.set(tep.fileName,tep.trueFileLogPath)
+            },
+            websocketonerror(){
+                console.log('连接错误');
+            },
+
+        }
+    })
+
+
+</script>
+<style>
+    html,body, #indexModel {
+        margin:0;padding:0;
+        height: 100%;width:100%;
+        background-color:#FAFAFA;
+
+    }
+    .mainContainIframe {
+        margin:0;padding:0;
+        width:100%;
+        height: 90%;
+    }
+    .mainContainIframe .frame{
+        margin:0;padding:0;
+        width: 100%;
+        height: 100%;
+
+    }
+    .userInfo{
+        width: 100px;
+        margin-left: 0px;
+    }
+
+</style>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wangsr.dao.MyJobMapper">
+
+
+
+	<select id="getAllJobAndTrigger" resultType="cn.wangsr.entity.JobDo.JobAndTriggerInfoDo">
+
+			SELECT
+		         <!--  QRTZ_TRIGGERS 表中信息 -->
+				qt.JOB_NAME AS job_name,
+				qt.JOB_GROUP AS job_group,
+				qt.TRIGGER_GROUP AS trigger_group,
+				qt.TRIGGER_NAME AS trigger_name,
+				qt.DESCRIPTION AS description,
+				qt.TRIGGER_STATE AS trigger_state,
+				qt.TRIGGER_TYPE AS trigger_type,
+				<!--  QRTZ_CRON_TRIGGERS 表中信息 -->
+				qct.CRON_EXPRESSION AS cron_express,
+				qct.TIME_ZONE_ID AS time_zone_id,
+			   <!-- QRTZ_SIMPLE_TRIGGERS 表中信息 -->
+				qst.REPEAT_COUNT AS repeat_count,
+				qst.REPEAT_INTERVAL AS repeat_interval,
+				<!-- QRTZ_JOB_DETAILS -->
+				qjs.JOB_CLASS_NAME AS job_class_name
+    FROM
+        QRTZ_TRIGGERS AS qt
+    LEFT JOIN QRTZ_CRON_TRIGGERS AS qct ON qt.TRIGGER_NAME = qct.TRIGGER_NAME
+    LEFT JOIN QRTZ_SIMPLE_TRIGGERS AS qst ON qt.TRIGGER_NAME = qst.TRIGGER_NAME
+    LEFT JOIN QRTZ_JOB_DETAILS AS qjs ON qt.JOB_NAME = qjs.JOB_NAME
+</select>
+
+	<select id="getJobInfoByJobName" resultType="cn.wangsr.entity.JobDo.JobAndTriggerInfoDo" parameterType="java.lang.String">
+
+		SELECT
+			qjd.JOB_NAME AS job_name,
+			qjd.JOB_GROUP AS job_group,
+			qjd.JOB_CLASS_NAME AS job_class_name,
+			qjd.DESCRIPTION AS description
+		FROM
+			QRTZ_JOB_DETAILS qjd
+		WHERE
+			qjd.JOB_NAME =#{jobName}
+
+	</select>
+
+
+
+</mapper>
+
+

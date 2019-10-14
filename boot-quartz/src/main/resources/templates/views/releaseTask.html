@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发布中心</title>
+    <script src="vue/vue.js" charset="utf-8"></script>
+    <script  type="text/javascript" src="other/jquery.js"></script>
+    <script  type="text/javascript" src="other/common.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="elementUi/index.css">
+    <!-- 引入组件库 -->
+    <script src="elementUi/index.js" charset="utf-8"></script>
+
+    <style>
+        html,body {
+            margin:0;padding:0;
+            height: 100%;width:100%;
+
+        }
+    </style>
+</head>
+<body>
+<div id="releaseModel">
+
+    <div>
+        <span>任务发布区</span>
+        <el-divider>{{dateNow}}</el-divider>
+    </div>
+
+    <el-row >
+        <el-col :span="8">
+            <div class="grid-content bg-purple">
+                <el-form ref="form" :model="form"   label-width="80px">
+                    <el-form-item label="任务名称" style="width: 400px">
+                        <el-input v-model="form.jobName"></el-input>
+                    </el-form-item>
+                    <el-form-item label="任务组" style="width: 400px">
+                        <el-input v-model="form.jobGroup"></el-input>
+                    </el-form-item>
+                    <el-form-item label="执行目录" style="width: 400px">
+                        <el-input v-model="form.jobDataMap.executePath"></el-input>
+                    </el-form-item>
+                    <el-form-item label="启用远程">
+                        <el-switch v-model="form.remote" on-value="1" off-value="0"  @change="executeSsh"></el-switch>{{form.remote}}
+                    </el-form-item>
+                    <el-form-item label="远程  IP">
+                        <el-select v-model="form.sshIp" placeholder="请选择服务器" @change="selectIp" :disabled="form.sshIpDisabled"  >
+                            <div v-for="item,index in  sshLinuxIp">
+                                <el-option :label="item" :value="item"></el-option>
+                            </div>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="执行命令" style="width: 400px">
+                        <el-input v-model="form.jobDataMap.tepShells" placeholder="多个脚本请用 ',' 号(英文)隔开"></el-input>
+                    </el-form-item>
+                    <el-form-item label="任务类型">
+                        <el-select v-model="form.type" placeholder="请选择任务" @change="executeType">
+                            <el-option label="simple" value="1"></el-option>
+                            <el-option label="cron" value="0"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="创建时间"  style="width: 400px">
+                        <el-col :span="11">
+                            <el-date-picker type="date" placeholder="选择日期" v-model="form.startTime"></el-date-picker>
+                        </el-col>
+                    </el-form-item>
+                    <el-form-item label="立刻执行">
+                        <el-switch v-model="form.atOnce" on-value="1" off-value="0"  @change="executeAtOnce"></el-switch>{{form.atOnce}}
+                    </el-form-item>
+                    <el-form-item label="执行类">
+                        <el-radio-group v-model="form.jobClass">
+                            <el-radio label="LinuxJob"></el-radio>
+                            <el-radio label="JarJob"></el-radio>
+                            <el-radio label="OtherJob"></el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                    <el-form-item label="cron"   style="width: 400px">
+                        <el-input v-model="form.cronExpression" :disabled="form.cronDisabled" ></el-input>
+                    </el-form-item>
+                    <el-form-item label="执行间隔"  style="width: 400px">
+                        <el-input  v-model="form.interval" :disabled="form.intervalDisabled"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                        <el-button>取消</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </el-col>
+
+        <el-col :span="16">
+            <div class="grid-content " >
+                <div style="width: 500px">
+                    <el-collapse v-model="activeNames" @change="handleChange" >
+                        <el-collapse-item title="cron 常见表达式" name="1"  type="primary">
+                            <div><el-tag type="success">*/5 * * * * ? 每隔5秒执行一次</el-tag></div>
+                            <div><el-tag type="success">0 0 10,14,16 * * ? 每天上午10点，下午2点，4点</el-tag></div>
+                            <div><el-tag type="success">0 0/30 9-17 * * ? 朝九晚五工作时间内每半小时</el-tag></div>
+                            <div><el-tag type="success">0 15 10 ? * * 每天上午10:15触发</el-tag></div>
+                            <div><el-tag type="success">0 15 10 15 * ?每月15日上午10:15触发</el-tag></div>
+                            <div><el-tag type="success">0 15 10 ? * 6L 2002-2005  2002年至2005年的每月的最后一个星期五上午10:15触发</el-tag></div>
+                        </el-collapse-item>
+                        <el-collapse-item title="hbase数据操作命令" name="2">
+                            <div><el-tag type="success">*/5 * * * * ? 每隔5秒执行一次</el-tag></div>
+                        </el-collapse-item>
+                        <el-collapse-item title="hdfs文件备份命令" name="3">
+                            <div><el-tag type="success">*/5 * * * * ? 每隔5秒执行一次</el-tag></div>
+                        </el-collapse-item>
+                        <el-collapse-item title="hdfs快照生成恢复命令" name="4">
+                            <div><el-tag type="success">*/5 * * * * ? 每隔5秒执行一次</el-tag></div>
+                        </el-collapse-item>
+                    </el-collapse>
+                </div>
+
+
+            </div>
+        </el-col>
+    </el-row>
+
+
+
+
+
+</div>
+<script>
+    $(function () {
+        vue.dateNow=formatDate(new Date(),'yyyy-MM-dd hh:mm:ss');
+        getSSHLinuxIp();
+    })
+
+    function getSSHLinuxIp() {
+        $.ajax({
+            url:'/quartz/getSshLinuxIpInfo',
+            type:'GET',
+            cache:false,
+            contentType:'application/json',
+            success:function (res) {
+                let tep=JSON.parse(res);
+                vue.sshLinuxIp=tep.data.sshLinuxCollect
+            }
+        })
+    }
+
+    var vue = new Vue({
+        el:"#releaseModel",
+        data:{
+            form: {
+                jobName: '',
+                jobGroup:'',
+                type:'',
+                startTime:'',
+                remote:'0', //是否启用远程
+                atOnce:'1',//是否立即执行
+                sshIp:'',//远程ip
+                sshIpDisabled:true,
+                jobClass:'',
+                cronExpression:'',
+                interval:'',
+                jobDataMap:{
+                    executePath:'',
+                    tepShells:'',
+                    shells:[],
+                    userName:sessionStorage.getItem("username")
+                },
+                cronDisabled:false,
+                intervalDisabled:false,
+            },
+            sshLinuxIp:[],
+            activeNames: ['1'],
+            dateNow:new Date()
+        },
+        methods:{
+            onSubmit() {
+                let that=this;
+                vue.form.jobDataMap.shells=[];
+                if(vue.form.sshIp != ''){
+                    vue.form.jobDataMap.shells.push("ssh");
+                    vue.form.jobDataMap.shells.push(vue.form.sshIp)
+                }
+                if(vue.form.jobDataMap.tepShells.indexOf(",")){
+                    let tepArr=vue.form.jobDataMap.tepShells.split(",");
+                    tepArr.forEach(x=>{
+                        if(x.trim() != ''){
+                            vue.form.jobDataMap.shells.push(x)
+                        }
+                    })
+                }else {
+                    vue.form.jobDataMap.shells.push(vue.form.jobDataMap.shells)
+                }
+                let params=JSON.stringify(vue.form);
+                $.ajax({
+                    url:'/quartz/start',
+                    type:'post',
+                    data:params,
+                    cache:false,
+                    contentType:'application/json',
+                    success:function (res) {
+                        let temRes=JSON.parse(res);
+                        if(temRes.code != 200){
+                            that.$message({
+                                message: temRes.data,
+                                type: 'error'
+                            });
+                        }else {
+                            that.$message({
+                                message: temRes.data,
+                                type: 'success'
+                            });
+                        }
+
+                    }
+                })
+            },
+            executeType(val){  //创建类型选择 simple  cron
+                if(val==1){
+                    vue.form.cronDisabled=true;
+                    vue.form.intervalDisabled=false;
+                }else{
+                    vue.form.cronDisabled=false;
+                    vue.form.intervalDisabled=true;
+                }
+            },
+            executeAtOnce(val){//是否立刻执行
+                if(val==true){
+                    vue.form.intervalDisabled=true;
+                    vue.form.interval=0;
+                }else {
+                    vue.form.intervalDisabled=false;
+                }
+            },
+            executeSsh(val){  //是否选择ssh远程
+                const that=this;
+                if(val==1){
+                    vue.form.sshIpDisabled=false;
+                    console.log(val,vue.form.sshIpDisabled)
+                    that.$message({
+                        message: "启用远程执行",
+                        type: 'warning',
+                        offset:200
+                    });
+                }else {
+                    vue.form.sshIpDisabled=true;
+                    console.log(val,vue.form.sshIpDisabled)
+                    that.$message({
+                        message: "禁止远程执行",
+                        type: 'warning',
+                        offset:200
+                    });
+                    vue.form.sshIp='';
+                }
+
+            },
+            selectIp(val){//选择ip
+                this.$message({
+                    message: '远程服务器'+val,
+                    type: 'warning',
+                    offset:200
+                });
+            },
+            handleChange(val) {
+                console.log(val);
+            }
+        },
+        watch:{
+            'form.jobDataMap.tepShells':function (newValue, oldValue) {
+                const that=this;
+                if(newValue.toString().indexOf("，") != -1 ){
+                    that.$message({
+                        message: '当前符号不符合规范,请重新输入!',
+                        type: 'error',
+                        offset:200
+                    });
+                    return;
+                }
+                if( newValue.toString().indexOf("rm") != -1 || newValue.toString().indexOf("rf") != -1){
+                    vue.form.jobDataMap.tepShells='';
+                    that.$message({
+                        message: '非法字符!',
+                        type: 'error',
+                        offset:200
+                    });
+                    return;
+                }
+            },
+        }
+
+    })
+
+</script>
+</body>
+</html>
