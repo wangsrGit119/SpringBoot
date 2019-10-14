@@ -6,9 +6,9 @@
 # 项目列表 简介
 
 -  Mycode-wechat
- >  微信小程序 + vue后台订单管理 + 后端dubbo接口 
+   >  微信小程序 + vue后台订单管理 + 后端dubbo接口 
 -  springboot-jdbc-mybatis-crud 
- > springboot结合mybatis，以及thymeleaf模版而成的小demo
+   > springboot结合mybatis，以及thymeleaf模版而成的小demo
 
 - SpringSecurity_springBoot
 > springboot整合安全框架springsecurity，数据操作用的mybatis，涉及到的数据是用户，角色，权限 
