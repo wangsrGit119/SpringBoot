@@ -26,20 +26,21 @@
             </plugin>
         </plugins>
     </build>
-	
+
+
 	  <!--配置私服-->
-    <distributionManagement>
-        <repository>
-            <id>cebon-releases</id>
-            <name>cebon-releases</name>
-            <url>http://192.168.99.243:8081/repository/cebon-releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>cebon-snapshots</id>
-            <name>cebon-snapshots</name>
-            <url>http://192.168.99.243:8081/repository/cebon-snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
+    <!--<distributionManagement>-->
+        <!--<repository>-->
+            <!--<id>cebon-releases</id>-->
+            <!--<name>cebon-releases</name>-->
+            <!--<url>http://192.168.99.243:8081/repository/cebon-releases/</url>-->
+        <!--</repository>-->
+        <!--<snapshotRepository>-->
+            <!--<id>cebon-snapshots</id>-->
+            <!--<name>cebon-snapshots</name>-->
+            <!--<url>http://192.168.99.243:8081/repository/cebon-snapshots/</url>-->
+        <!--</snapshotRepository>-->
+    <!--</distributionManagement>-->
 <!--
     <repositories>
         <repository>
