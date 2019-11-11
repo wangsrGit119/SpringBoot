@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="common-api" />
+        <module name="wechat-client-provider" />
+        <module name="wechat-eureka-one" />
+        <module name="wechat-server-provider" />
+        <module name="wechat-web-consumer" />
+        <module name="wechat-web-zuul" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

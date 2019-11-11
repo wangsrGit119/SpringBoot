@@ -1,0 +1,20 @@
+server:
+  port: 8999
+spring:
+  application:
+    name: wechat-web-zuul
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka/
+  instance:
+    instance-id: wechat-web-zuul   #将自己的该名字注册到Eureka Server。若不配置或设置为false，表示注册微服务所在操作系统的hostname到Eureka Server
+    prefer-ip-address: true     #访问路径可以显示IP地址
+zuul:
+  routes:
+    api-client:
+      path: /api-client/**
+      serviceId: wechat-web-consumer
+    api-web:
+      path: /api-server/**
+      serviceId: wechat-web-consumer
