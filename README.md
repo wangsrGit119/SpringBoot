@@ -18,7 +18,9 @@
    >  日志实时预览 socket及时通讯
    - 预览
        ![Alt text](https://github.com/wangsrGit119/SpringBoot/blob/master/boot-quartz/images/releaseTask.png)
-
+-  ###  boot-quartz 
+   >  springboot+springSecurity 自定义登录成功处理器和失败处理器
+   
 -  ### SpringSecurity_springBoot2
 
     - sql脚本链接：https://pan.baidu.com/s/1ThNCL3-BZ57TtT0hURlZCQ 密码：xkzp
@@ -33,9 +35,6 @@
 -  ###  maincloud
  > springcloud微服务架构 及其eureka注册中心集群搭建配置
  
--  ###  springboot-upload	 
-   -  文件上传 
-   -  springboot全局拦截（controllerAdvice）
-   -  redis配置
+
  
 
