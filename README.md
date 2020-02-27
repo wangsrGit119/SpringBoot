@@ -18,7 +18,7 @@
    >  日志实时预览 socket及时通讯
    - 预览
        ![Alt text](https://github.com/wangsrGit119/SpringBoot/blob/master/boot-quartz/images/releaseTask.png)
--  ###  boot-quartz 
+-  ###  boot-security 
    >  springboot+springSecurity 自定义登录成功处理器和失败处理器
    
 -  ### SpringSecurity_springBoot2
