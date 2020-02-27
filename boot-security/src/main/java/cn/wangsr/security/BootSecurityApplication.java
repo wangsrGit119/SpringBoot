@@ -1,12 +1,13 @@
-package cn.wangsr.springbootupload;
+package cn.wangsr.security;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringbootUploadApplication {
+public class BootSecurityApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootUploadApplication.class, args);
+        SpringApplication.run(BootSecurityApplication.class, args);
     }
+
 }
