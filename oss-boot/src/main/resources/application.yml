@@ -1,0 +1,7 @@
+# ∞¢¿Ôoss
+oss:
+  endpoint: oss-cn-beijing.aliyuncs.com
+  accessKeyId: LTAI4FqdsgdfcaKeUw7Np
+  accessKeySecret: H4CkvStOkdsfdfgdgQFkfFuNzcrEN
+  bucketName: wangsr-oss-files
+  folder: cebon/
