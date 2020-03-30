@@ -34,6 +34,8 @@
  > springcloud微服务基础搭建
 -  ###  maincloud
  > springcloud微服务架构 及其eureka注册中心集群搭建配置
+- ### oss-boot
+ > 阿里oss文件分片上传demo
  
 
  
