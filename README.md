@@ -1,5 +1,6 @@
 # SpringBoot  
-  本仓库项目都是基于springboot开发,和各种常见的三方整合,不定时更新，有问题，互助QQ群：916135074
+  本仓库项目都是基于springboot开发,和各种常见的三方整合,不定时更新，有问题，![](https://img.shields.io/badge/QQ%E7%BE%A4-916135074-brightgreen)
+
 
 ---
 
