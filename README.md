@@ -24,7 +24,7 @@
    
 -  ### SpringSecurity_springBoot2
 
-    - sql脚本链接：https://pan.baidu.com/s/1ThNCL3-BZ57TtT0hURlZCQ 密码：xkzp
+    - sql脚本链接：https://pan.baidu.com/s/1mW8ctBson2V6hsAYx_vQ5w 密码：048y
 
     - 一款基于springsecurity+mybatis+springboot+layui实现的权限管理系统，无论是在权限，还是数据操作上都是学习的好样本，
 
