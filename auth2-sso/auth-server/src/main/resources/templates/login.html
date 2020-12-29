@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html    lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>统一认证中心</title>
+
+
+
+</head>
+<body >
+<div class="login">
+    <div class="message">统一认证中心</div>
+    <form method="post" th:action="@{/login}"  >
+        <input name="username" placeholder="用户名"  type="text"  >
+        <input name="password" placeholder="密码"  type="password" >
+        <input   value="登录"  type="submit">
+    </form>
+</div>
+
+</body>
+
+<style>
+    .login{
+        text-align: center;
+    }
+
+</style>
+</html>

@@ -1,0 +1,36 @@
+server:
+  port: 9001
+
+spring:
+  redis:
+    host: 127.0.0.1
+  application:
+    name: auth2-server
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://127.0.0.1:3306/auth_server?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: root
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      #自动提交从池中返回的连接
+      auto-commit: true
+      #池中维护的最小空闲连接数
+      minimum-idle: 5
+      ## 数据库连接超时时间,默认30秒，即30000
+      idle-timeout: 60000
+      #等待连接的超时时间，毫秒
+      connection-timeout: 30000
+      ## 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1200000即20分钟
+      max-lifetime: 1000000
+      ##连接池名称
+      pool-name: MyHikariCP
+      #池中最大连接数，包括闲置和使用中的连接
+      maximum-pool-size: 10
+      connection-test-query: SELECT 1
+
+
+  thymeleaf:
+    cache: false
+    suffix: .html
+    mode: HTML5

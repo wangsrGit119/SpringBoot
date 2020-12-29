@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: auth-client01
+
+security:
+  oauth2: #与oauth2-server对应的配置
+    client:
+      client-id: auth-client001
+      client-secret: 123456
+      user-authorization-uri: http://localhost:9001/oauth/authorize
+      access-token-uri: http://localhost:9001/oauth/token
+    resource:
+      jwt:
+        key-uri: http://localhost:9001/oauth/token_key
+server:
+  port: 8081
+  servlet:
+    context-path: /client01
